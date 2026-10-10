@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-navy-950: #060b1a;
+  --color-navy-900: #0a1230;
+  --color-navy-800: #101c47;
+  --color-navy-700: #1a2a63;
+  --color-electric: #2f6bff;
+  --color-electric-dark: #1f50d6;
+  --color-teal: #14c8b4;
+  --color-ink: #0b1226;
+  --color-mist: #f4f7fc;
+  --color-line: #e2e8f4;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 5rem; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animasi reveal dengan stagger */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Stagger delays untuk anak-anak */
+.reveal-stagger > * { opacity: 0; transform: translateY(20px); }
+.reveal-stagger.is-visible > * { opacity: 1; transform: none; transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 500ms; }
+
+/* Hover effects untuk card */
+.card-hover {
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(47, 107, 255, .15);
+  border-color: rgba(47, 107, 255, .3);
+}
+
+/* Button hover */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-electric), var(--color-electric-dark));
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(47, 107, 255, .4);
+  filter: brightness(1.05);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-electric), var(--color-teal));
+  transition: width .3s ease;
+}
+.link-underline:hover::after { width: 100%; }
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-electric);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal-stagger > * { opacity: 1; transform: none; transition: none; }
+  .card-hover, .btn-primary, .link-underline::after { transition: none; }
 }
