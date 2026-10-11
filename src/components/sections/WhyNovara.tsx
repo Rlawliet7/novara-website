@@ -9,28 +9,33 @@ export function WhyNovara() {
       id="why"
       tone="mist"
       eyebrow="Mengapa Novara"
-      title="Mengapa memilih Novara Project"
+      title="Mengapa organisasi memilih Novara Project"
       description="Didukung proses kerja, portofolio, dan kemampuan teknis yang nyata."
     >
-      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+      <div className="space-y-8">
         {whyNovara.map((w, i) => (
-          <li
-            key={w.title}
-            // 5 kartu: 3 di baris atas, 2 melebar di baris bawah (desktop)
-            className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
-          >
-            <Reveal delay={i * 70} className="h-full">
-              <article className="h-full rounded-2xl border border-line bg-white p-7">
-                <span className="grid h-11 w-11 place-items-center rounded-lg bg-navy-900 text-teal">
-                  <Icon name={w.icon} size={20} />
+          <Reveal key={w.title} delay={i * 80}>
+            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+              {i % 2 === 1 && <div />}
+              <div className="flex items-center gap-4 lg:order-2 lg:justify-end">
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-navy-900 text-teal">
+                  <Icon name={w.icon} size={24} />
                 </span>
-                <h3 className="mt-5 text-lg font-bold text-navy-900">{w.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{w.desc}</p>
-              </article>
-            </Reveal>
-          </li>
+                <div className="text-right lg:text-left">
+                  <h3 className="text-xl font-bold text-navy-900">{w.title}</h3>
+                  <p className="mt-1.5 text-base leading-relaxed text-slate-600">{w.desc}</p>
+                </div>
+              </div>
+              <div className="lg:order-1">
+                <span className="text-7xl font-extrabold text-electric/[0.08] tracking-tight">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              {i % 2 === 0 && <div />}
+            </div>
+          </Reveal>
         ))}
-      </ul>
+      </div>
     </Section>
   );
 }

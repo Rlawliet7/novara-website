@@ -18,14 +18,14 @@ export function About() {
         </Reveal>
 
         <Reveal delay={120}>
-          <dl className="grid grid-cols-3 overflow-hidden rounded-2xl bg-navy-900 text-white">
+          <dl className="grid grid-cols-3 gap-0 overflow-hidden rounded-2xl bg-navy-900 text-white">
             {about.stats.map((s, i) => (
               <div
                 key={s.label}
-                className={`p-6 text-center sm:p-8 ${i > 0 ? "border-l border-white/10" : ""}`}
+                className={`flex flex-col items-center justify-center p-6 text-center sm:p-8 ${i > 0 ? "border-l border-white/10" : ""}`}
               >
+                <dd className="order-1 text-4xl font-extrabold text-electric sm:text-5xl">{s.value}</dd>
                 <dt className="order-2 mt-2 text-xs leading-snug text-white/65 sm:text-sm">{s.label}</dt>
-                <dd className="text-4xl font-extrabold text-electric sm:text-5xl">{s.value}</dd>
               </div>
             ))}
           </dl>

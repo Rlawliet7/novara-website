@@ -6,31 +6,33 @@ export function Process() {
   return (
     <Section
       id="process"
+      tone="light"
       eyebrow="Proses Kerja"
       title="Proses kerja terstruktur dalam enam tahap"
       description="Lingkup, jadwal, dan hasil akhir jelas sejak awal, dari konsultasi sampai dukungan lanjutan."
     >
-      <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {process.map((p, i) => (
-          <li key={p.step}>
-            <Reveal delay={i * 70} className="h-full">
-              <div className="relative h-full overflow-hidden rounded-2xl border border-line bg-white p-7">
-                <span
-                  aria-hidden="true"
-                  className="absolute -right-2 -top-4 select-none text-8xl font-extrabold text-electric/[0.07]"
-                >
-                  {p.step}
-                </span>
-                <span className="inline-block rounded-md bg-navy-900 px-2.5 py-1 text-xs font-bold tracking-widest text-teal">
-                  {p.step}
-                </span>
-                <h3 className="relative mt-4 text-lg font-bold text-navy-900">{p.title}</h3>
-                <p className="relative mt-2 text-[15px] leading-relaxed text-slate-600">{p.desc}</p>
+      <Reveal>
+        <ol className="space-y-6 max-w-3xl mx-auto">
+          {process.map((p, i) => (
+            <li key={p.step} className="relative">
+              <div
+                className="absolute left-6 top-12 bottom-0 w-0.5 bg-line"
+                aria-hidden="true"
+                style={{ display: i === process.length - 1 ? "none" : "block" }}
+              />
+              <div className="relative pl-16">
+                <div className="absolute left-0 top-1 flex h-12 w-12 items-center justify-center rounded-full bg-white border-4 border-navy-900 z-10">
+                  <span className="text-2xl font-extrabold text-electric">{p.step}</span>
+                </div>
+                <div className="rounded-2xl border border-line bg-white p-6 md:p-8">
+                  <h3 className="text-xl font-bold text-navy-900">{p.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-slate-600">{p.desc}</p>
+                </div>
               </div>
-            </Reveal>
-          </li>
-        ))}
-      </ol>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
     </Section>
   );
 }

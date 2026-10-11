@@ -15,6 +15,7 @@ export function Section({
   description,
   tone = "light",
   children,
+  className = "",
 }: {
   id: string;
   eyebrow?: string;
@@ -22,10 +23,11 @@ export function Section({
   description?: string;
   tone?: Tone;
   children: React.ReactNode;
+  className?: string;
 }) {
   const dark = tone === "dark";
   return (
-    <section id={id} className={`${tones[tone]} py-20 md:py-28`}>
+    <section id={id} className={`${tones[tone]} py-20 md:py-28 ${className}`}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         {(eyebrow || title) && (
           <Reveal className="mb-12 max-w-2xl">

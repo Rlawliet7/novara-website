@@ -52,20 +52,29 @@ export const solutions = [
 ];
 
 export const process = [
-  { step: "01", title: "Consultation", desc: "Diskusi kebutuhan dan tujuan. Konsultasi awal gratis." },
-  { step: "02", title: "Requirement Analysis", desc: "Analisis lingkup, fitur, jadwal, dan estimasi biaya." },
-  { step: "03", title: "Proposal & Agreement", desc: "Harga, jadwal, termin, batas revisi, dan ketentuan kerja." },
-  { step: "04", title: "Development", desc: "Pengembangan sesuai lingkup, komunikasi rutin." },
-  { step: "05", title: "Testing & QA", desc: "Uji fungsi dan perbaikan berdasarkan hasil pengujian." },
-  { step: "06", title: "Delivery & Support", desc: "Serah terima, dokumentasi, dan maintenance lanjutan." },
+  { step: "01", title: "Konsultasi", desc: "Diskusi kebutuhan dan tujuan. Konsultasi awal gratis." },
+  { step: "02", title: "Analisis Kebutuhan", desc: "Analisis lingkup, fitur, jadwal, dan estimasi biaya." },
+  { step: "03", title: "Proposal & Kesepakatan", desc: "Harga, jadwal, termin, batas revisi, dan ketentuan kerja." },
+  { step: "04", title: "Pengembangan", desc: "Pengembangan sesuai lingkup, komunikasi rutin." },
+  { step: "05", title: "Pengujian & QA", desc: "Uji fungsi dan perbaikan berdasarkan hasil pengujian." },
+  { step: "06", title: "Serah Terima & Dukungan", desc: "Serah terima, dokumentasi, dan maintenance lanjutan." },
 ];
 
 export const whyNovara = [
-  { icon: "Target", title: "Client-Oriented", desc: "Setiap proyek dimulai dari memahami tujuan klien." },
-  { icon: "Puzzle", title: "Tailored Solutions", desc: "Sesuai lingkup, bukan satu produk untuk semua." },
-  { icon: "ListChecks", title: "Structured Execution", desc: "Lingkup, jadwal, dan hasil akhir disepakati bersama." },
-  { icon: "TrendingUp", title: "Scalable Development", desc: "Siap dikembangkan seiring pertumbuhan kebutuhan." },
-  { icon: "Handshake", title: "Long-Term Partnership", desc: "Maintenance dan dukungan teknis berkelanjutan." },
+  { icon: "Target", title: "Fokus pada Klien", desc: "Setiap proyek dimulai dari memahami tujuan klien." },
+  { icon: "Puzzle", title: "Solusi Sesuai Ukuran", desc: "Sesuai lingkup, bukan satu produk untuk semua." },
+  { icon: "ListChecks", title: "Eksekusi Terstruktur", desc: "Lingkup, jadwal, dan hasil akhir disepakati bersama." },
+  { icon: "TrendingUp", title: "Pengembangan Terkembang", desc: "Siap dikembangkan seiring pertumbuhan kebutuhan." },
+  { icon: "Handshake", title: "Kemitraan Jangka Panjang", desc: "Maintenance dan dukungan teknis berkelanjutan." },
+];
+
+export const techStack = [
+  { category: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS"] },
+  { category: "Backend", items: ["Node.js", "Next.js API Routes", "PostgreSQL", "Prisma"] },
+  { category: "AI & Automation", items: ["OpenAI API", "LangChain", "n8n", "Webhooks"] },
+  { category: "Infrastruktur", items: ["Vercel", "Docker", "GitHub Actions", "Supabase"] },
+  { category: "Desain & Prototipe", items: ["Figma", "FigJam", "Storybook"] },
+  { category: "Lainnya", items: ["Git", "ESLint", "Prettier", "Husky"] },
 ];
 
 // Portofolio: JANGAN isi klien/hasil rekaan. Isi hanya proyek nyata/demo, dengan status jelas.
@@ -98,15 +107,15 @@ export const portfolio = {
 };
 
 export const clients = [
-  { title: "Businesses & Enterprises", desc: "Perusahaan yang butuh website, sistem informasi, dashboard, integrasi, atau otomasi." },
-  { title: "Small & Medium Enterprises", desc: "UMKM yang ingin membangun identitas digital, memasarkan produk, dan lebih efisien." },
-  { title: "Organizations & Communities", desc: "Website profil, database anggota, sistem administrasi, dan platform informasi." },
-  { title: "Event Organizers", desc: "Penyelenggara acara dan institusi: website registrasi dan pengelolaan peserta." },
+  { title: "Perusahaan & Enterprise", desc: "Perusahaan yang butuh website, sistem informasi, dashboard, integrasi, atau otomasi." },
+  { title: "UMKM", desc: "UMKM yang ingin membangun identitas digital, memasarkan produk, dan lebih efisien." },
+  { title: "Organisasi & Komunitas", desc: "Website profil, database anggota, sistem administrasi, dan platform informasi." },
+  { title: "Penyelenggara Acara", desc: "Penyelenggara acara dan institusi: website registrasi dan pengelolaan peserta." },
 ];
 export const clientPriority = "Prioritas awal: UMKM, organisasi, dan penyelenggara kegiatan dengan kebutuhan yang jelas.";
 
 export const vision =
-  "To become a trusted and adaptive digital solutions partner that empowers businesses and organizations through accessible, effective, and sustainable technology.";
+  "Menjadi mitra solusi digital terpercaya dan adaptif yang memberdayakan bisnis dan organisasi melalui teknologi yang aksesibel, efektif, dan berkelanjutan.";
 
 export const mission = [
   "Solusi digital sesuai kebutuhan dan tujuan setiap klien",
@@ -114,6 +123,33 @@ export const mission = [
   "Produk digital terstruktur, andal, dan dapat dikembangkan",
   "Kerja sama jangka panjang dengan komunikasi transparan",
   "Pemanfaatan teknologi digital yang lebih efektif",
+];
+
+export const faq = [
+  {
+    q: "Berapa lama proses pembuatan website/sistem?",
+    a: "Tergantung lingkup. Website company profile: 2–4 minggu. Sistem informasi custom: 1–3 bulan. Kami komunikasi jadwal pasti sejak proposal.",
+  },
+  {
+    q: "Apakah ada biaya bulanan setelah selesai?",
+    a: "Tidak wajib. Kami tawarkan paket maintenance opsional (update keamanan, backup, dukungan teknis). Bisa dibayar per incident atau bulanan.",
+  },
+  {
+    q: "Bisa request revisi setelah serah terima?",
+    a: "Ya. Revisi minor (teks, gambar, warna) gratis selama 30 hari pasca-serah-terima. Revisi fitur/struktur baru dikutip terpisah.",
+  },
+  {
+    q: "Teknologi apa yang dipakai Novara?",
+    a: "Utama: Next.js, React, TypeScript, Tailwind CSS, PostgreSQL, Prisma. AI: OpenAI API, LangChain. Deploy: Vercel, Docker. Detail di bagian Teknologi.",
+  },
+  {
+    q: "Apakah Novara bantu hosting & domain?",
+    b: "Bisa bantu beli/konfigurasi domain dan setup hosting (Vercel, VPS, atau shared hosting). Biaya domain/hosting ditanggung klien.",
+  },
+  {
+    q: "Bagaimana cara memulai konsultasi?",
+    a: "Klik tombol “Konsultasi Gratis” di halaman ini, isi formulir singkat, atau hubungi via WhatsApp/Email. Kami balas maksimal 1 hari kerja.",
+  },
 ];
 
 export const collaboration = {

@@ -64,7 +64,7 @@ export function Contact() {
                     <Cmp size={20} aria-hidden="true" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-xs uppercase tracking-wider text-white/50">{label}</span>
+                    <span className="block text-xs uppercase tracking-wider text-white/70">{label}</span>
                     <span className="block truncate text-[15px] font-medium">{text}</span>
                   </span>
                 </a>

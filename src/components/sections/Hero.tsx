@@ -31,7 +31,7 @@ export function Hero() {
             {siteConfig.descriptor}
           </p>
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            NOVARA PROJECT
+            Solusi Digital yang Menggerakkan Bisnis Anda Maju
           </h1>
           <p className="mt-4 text-2xl font-semibold text-electric sm:text-3xl">
             {siteConfig.tagline}
