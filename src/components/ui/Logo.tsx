@@ -1,4 +1,4 @@
-export function Logo({ light = true, size = 30 }: { light?: boolean; size?: number }) {
+export function Logo({ light = true, size = 30, inheritColor = false }: { light?: boolean; size?: number; inheritColor?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       <img
@@ -8,7 +8,7 @@ export function Logo({ light = true, size = 30 }: { light?: boolean; size?: numb
         height={size}
         className="object-contain"
       />
-      <span className={`text-[15px] font-bold tracking-[0.14em] ${light ? "text-white" : "text-navy-900"}`}>
+      <span className={`text-[15px] font-bold tracking-[0.14em] ${inheritColor ? "text-current" : light ? "text-white" : "text-navy-900"}`}>
         NOVARA
       </span>
     </span>

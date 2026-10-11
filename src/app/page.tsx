@@ -1,8 +1,8 @@
+import { RoomIntro } from "@/components/intro/RoomIntro";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { Challenges } from "@/components/sections/Challenges";
-import { About } from "@/components/sections/About";
+import { Approach } from "@/components/sections/Approach";
 import { Services } from "@/components/sections/Services";
 import { Solutions } from "@/components/sections/Solutions";
 import { TechStack } from "@/components/sections/TechStack";
@@ -21,9 +21,8 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero />
-        <Challenges />
-        <About />
+        <RoomIntro><Hero /></RoomIntro>
+        <Approach />
         <Services />
         <Solutions />
         <TechStack />

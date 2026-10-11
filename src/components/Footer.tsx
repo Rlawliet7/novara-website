@@ -4,7 +4,7 @@ import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-navy-950 text-white">
+    <footer data-nav-theme="dark" className="border-t border-white/10 bg-navy-950 text-white">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div>

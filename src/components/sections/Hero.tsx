@@ -9,7 +9,7 @@ export function Hero() {
   const cta = getWhatsAppUrl() ?? mailtoUrl;
 
   return (
-    <section id="home" className="relative overflow-hidden bg-navy-950 pt-32 pb-20 text-white md:pt-40 md:pb-28">
+    <section id="home" data-nav-theme="dark" className="relative overflow-hidden bg-navy-950 pt-32 pb-20 text-white md:pt-40 md:pb-28">
       {/* grid tipis + glow */}
       <div
         aria-hidden="true"
