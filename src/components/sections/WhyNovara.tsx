@@ -3,6 +3,9 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Icon } from "@/components/ui/Icon";
 
+// Satu aksen per kartu, memakai keluarga warna yang sama dengan section lain.
+const ACCENTS = ["#2f6bff", "#14c8b4", "#1b9df0", "#4a44d6", "#12b083"];
+
 export function WhyNovara() {
   return (
     <Section
@@ -12,30 +15,22 @@ export function WhyNovara() {
       title="Mengapa organisasi memilih Novara Project"
       description="Didukung proses kerja, portofolio, dan kemampuan teknis yang nyata."
     >
-      <div className="space-y-8">
-        {whyNovara.map((w, i) => (
-          <Reveal key={w.title} delay={i * 80}>
-            <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-              {i % 2 === 1 && <div />}
-              <div className="flex items-center gap-4 lg:order-2 lg:justify-end">
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-navy-900 text-teal">
-                  <Icon name={w.icon} size={24} />
-                </span>
-                <div className="text-right lg:text-left">
-                  <h3 className="text-xl font-bold text-navy-900">{w.title}</h3>
-                  <p className="mt-1.5 text-base leading-relaxed text-slate-600">{w.desc}</p>
-                </div>
-              </div>
-              <div className="lg:order-1">
-                <span className="text-7xl font-extrabold text-electric/[0.08] tracking-tight">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              {i % 2 === 0 && <div />}
-            </div>
-          </Reveal>
+      {/* 3 + 2 kolom: seluruh sel terisi, tidak ada pengisi kosong. */}
+      <Reveal stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        {whyNovara.map((item, i) => (
+          <article
+            key={item.title}
+            className={`why-card group ${i < 3 ? "lg:col-span-2" : "lg:col-span-3"}`}
+            style={{ "--accent": ACCENTS[i % ACCENTS.length] } as React.CSSProperties}
+          >
+            <span className="why-card-rail" aria-hidden="true" />
+            <span className="why-card-no" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <span className="why-card-icon"><Icon name={item.icon} size={23} /></span>
+            <h3 className="why-card-title">{item.title}</h3>
+            <p className="why-card-desc">{item.desc}</p>
+          </article>
         ))}
-      </div>
+      </Reveal>
     </Section>
   );
 }

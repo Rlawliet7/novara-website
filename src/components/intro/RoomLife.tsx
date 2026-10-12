@@ -35,8 +35,8 @@ export function RoomLife({ scrollRoot, thoughtRef, animated }: Props) {
   const head = useRef<Group>(null);
   const steam = useRef<(Sprite | null)[]>([]);
   const elapsed = useRef(0);
-  const anchor = useMemo(() => new Vector3(), []);
-  const headAnchor = useMemo(() => new Vector3(), []);
+  const anchor = useRef(new Vector3());
+  const headAnchor = useRef(new Vector3());
   const steamTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 64;
@@ -83,21 +83,20 @@ export function RoomLife({ scrollRoot, thoughtRef, animated }: Props) {
       puff.material.opacity = Math.sin(life * Math.PI) * .47;
     });
     if (thoughtRef.current) {
-      anchor.set(-1.05, 2.55, 1.04).project(camera);
+      const point = anchor.current.set(-1.05, 2.55, 1.04).project(camera);
       const width = Math.min(264, size.width - 40);
-      const x = Math.max(width / 2 + 20, Math.min(size.width - width / 2 - 20, (anchor.x * .5 + .5) * size.width));
-      const y = size.width < 640 ? 255 : Math.max(190, (1 - (anchor.y * .5 + .5)) * size.height - 18);
+      const x = Math.max(width / 2 + 20, Math.min(size.width - width / 2 - 20, (point.x * .5 + .5) * size.width));
+      const y = size.width < 640 ? 255 : Math.max(190, (1 - (point.y * .5 + .5)) * size.height - 18);
       thoughtRef.current.style.setProperty("--thought-x", `${x}px`);
       thoughtRef.current.style.setProperty("--thought-y", `${y}px`);
       // Keep the trailing puffs pointed at the head wherever the bubble gets clamped to.
       let tail = 0;
       let tilt = 0;
       if (head.current) {
-        head.current.getWorldPosition(headAnchor);
-        headAnchor.y += .3;
-        headAnchor.project(camera);
-        const headX = (headAnchor.x * .5 + .5) * size.width;
-        const headY = (1 - (headAnchor.y * .5 + .5)) * size.height;
+        const top = head.current.getWorldPosition(headAnchor.current);
+        top.setY(top.y + .3).project(camera);
+        const headX = (top.x * .5 + .5) * size.width;
+        const headY = (1 - (top.y * .5 + .5)) * size.height;
         const limit = Math.max(0, width / 2 - 34);
         tail = Math.max(-limit, Math.min(limit, headX - x));
         const reach = Math.atan2(headX - x - tail, Math.max(28, headY - y)) * 180 / Math.PI;

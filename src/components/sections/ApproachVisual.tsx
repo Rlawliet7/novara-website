@@ -1,7 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { challenges } from "@/config/content";
+import { PIECE_COLORS } from "./approachColors";
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useNearViewport } from "./useNearViewport";
 
 const ApproachScene = dynamic(() => import("./ApproachScene"), { ssr: false });
 
@@ -12,17 +15,48 @@ class SceneBoundary extends Component<{ children: ReactNode; onError: () => void
   render() { return this.state.failed ? null : this.props.children; }
 }
 
+/**
+ * The same six items for small screens, no WebGL, or reduced motion — shaped as
+ * interlocking puzzle pieces, but static: no scroll-driven motion here.
+ * Each piece sits above the next one so its tab fills the next piece's socket.
+ */
+function ChallengeGrid() {
+  return (
+    <ul className="challenge-stack">
+      {challenges.map((item, i) => (
+        <li
+          key={item.label}
+          className="challenge-piece"
+          style={{ "--brand": PIECE_COLORS[i], zIndex: challenges.length - i } as React.CSSProperties}
+        >
+          <span className="challenge-piece-no">{String(i + 1).padStart(2, "0")}</span>
+          <p className="challenge-piece-label">{item.label}</p>
+          <p className="challenge-piece-problem">{item.problem}</p>
+          <p className="challenge-piece-answer">{item.answer}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function ApproachVisual() {
   const panel = useRef<HTMLDivElement>(null);
-  const [enabled, setEnabled] = useState(false);
+  const overlay = useRef<HTMLDivElement>(null);
+  const halo = useRef<HTMLDivElement>(null);
+  const activeRef = useRef(-1);
+  const [active, setActive] = useState(-1);
+  const [stage, setStage] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [animated, setAnimated] = useState(true);
+  const near = useNearViewport(panel, stage && !failed);
   const fail = useCallback(() => setFailed(true), []);
   const onReady = useCallback(() => setReady(true), []);
 
+  useEffect(() => { activeRef.current = active; }, [active]);
+
   useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const wide = window.matchMedia("(min-width: 1024px)");
     const update = () => {
       let supported = false;
       try {
@@ -30,49 +64,61 @@ export function ApproachVisual() {
         const context = canvas.getContext("webgl2");
         supported = !!context;
         context?.getExtension("WEBGL_lose_context")?.loseContext();
-      } catch { /* The static diagram below stands in without WebGL. */ }
-      setEnabled(supported && !preference.matches);
-      setAnimated(!preference.matches);
+      } catch { /* The plain grid below stands in without WebGL. */ }
+      setStage(supported && wide.matches && !motion.matches);
     };
     update();
-    preference.addEventListener("change", update);
-    return () => preference.removeEventListener("change", update);
+    motion.addEventListener("change", update);
+    wide.addEventListener("change", update);
+    return () => {
+      motion.removeEventListener("change", update);
+      wide.removeEventListener("change", update);
+    };
   }, []);
 
-  const live = enabled && !failed;
+  if (!stage || failed) return <ChallengeGrid />;
+
+  const hold = (index: number) => ({
+    onMouseEnter: () => setActive(index),
+    onMouseLeave: () => setActive((current) => (current === index ? -1 : current)),
+    onFocus: () => setActive(index),
+    onBlur: () => setActive((current) => (current === index ? -1 : current)),
+    onClick: () => setActive((current) => (current === index ? -1 : index)),
+  });
 
   return (
-    <div
-      ref={panel}
-      className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-navy-900 sm:aspect-[5/4] lg:aspect-square"
-    >
-      <div className="approach-glow" aria-hidden="true" />
+    <div ref={panel} className="approach-stage">
+      <div ref={halo} className="approach-halo" aria-hidden="true">
+        {challenges.map((item, i) => <span key={item.label} style={{ "--brand": PIECE_COLORS[i] } as React.CSSProperties} />)}
+      </div>
 
-      {live && (
+      {near && (
         <SceneBoundary onError={fail}>
           <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
-            <ApproachScene panel={panel} animated={animated} onReady={onReady} onError={fail} />
+            <ApproachScene panel={panel} overlay={overlay} halo={halo} active={activeRef} animated onReady={onReady} onError={fail} />
           </div>
         </SceneBoundary>
       )}
 
-      {/* Static stand-in: shown until the scene paints, and permanently without WebGL. */}
-      {(!live || !ready) && (
-        <div className="absolute inset-0 grid place-items-center p-8" aria-hidden="true">
-          <div className="grid w-full max-w-[280px] grid-cols-3 gap-2.5">
-            {Array.from({ length: 6 }, (_, i) => (
-              <div
-                key={i}
-                className={`h-10 rounded-md ${i % 3 === 1 ? "bg-teal/80" : "bg-electric/80"}`}
-              />
-            ))}
-            <div className="col-span-3 mt-1 h-1.5 rounded-full bg-navy-700" />
+      <div ref={overlay} className="approach-overlay" data-shown="false">
+        {challenges.map((item, i) => (
+          <div key={item.label} className="approach-hotspot" data-active={active === i} data-below={i < 3} style={{ "--brand": PIECE_COLORS[i] } as React.CSSProperties}>
+            <button type="button" className="approach-chip" aria-expanded={active === i} aria-controls={`challenge-${i}`} {...hold(i)}>
+              <span className="approach-chip-no">{String(i + 1).padStart(2, "0")}</span>
+              {item.label}
+            </button>
+            <div id={`challenge-${i}`} className="approach-detail" role="region" aria-label={item.label}>
+              <p className="approach-detail-problem">{item.problem}</p>
+              <p className="approach-detail-answer">{item.answer}</p>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
 
-      <p className="absolute bottom-5 left-6 right-6 text-xs leading-relaxed text-white/45">
-        Enam kebutuhan terpisah, dirakit menjadi satu sistem yang terhubung.
+      <p className="approach-hint">
+        {active === -1
+          ? "Arahkan kursor ke tiap modul untuk melihat detailnya."
+          : "Enam kebutuhan terpisah, dirakit menjadi satu sistem yang terhubung."}
       </p>
     </div>
   );

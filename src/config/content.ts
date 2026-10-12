@@ -9,12 +9,36 @@ export const navItems = [
 ];
 
 export const challenges = [
-  "Belum memiliki website atau identitas digital profesional",
-  "Informasi produk dan layanan belum tersaji terstruktur",
-  "Data anggota, inventaris, atau pelanggan masih manual",
-  "Butuh dashboard dan pelaporan untuk mengambil keputusan",
-  "Proses kerja berulang yang berpotensi diotomasi",
-  "Sistem belum terintegrasi untuk mendukung operasional",
+  {
+    label: "Identitas Digital",
+    problem: "Belum memiliki website atau identitas digital profesional",
+    answer: "Kami bangun website company profile yang menjelaskan siapa Anda dan apa yang Anda kerjakan.",
+  },
+  {
+    label: "Informasi Produk",
+    problem: "Informasi produk dan layanan belum tersaji terstruktur",
+    answer: "Katalog dan halaman layanan disusun agar calon klien menemukan jawabannya tanpa bertanya dulu.",
+  },
+  {
+    label: "Data Manual",
+    problem: "Data anggota, inventaris, atau pelanggan masih manual",
+    answer: "Catatan yang terpisah dipindahkan ke satu basis data yang rapi dan bisa dicari.",
+  },
+  {
+    label: "Dashboard & Laporan",
+    problem: "Butuh dashboard dan pelaporan untuk mengambil keputusan",
+    answer: "Angka penting ditampilkan dalam satu layar, sehingga keputusan tidak menunggu rekap manual.",
+  },
+  {
+    label: "Proses Berulang",
+    problem: "Proses kerja berulang yang berpotensi diotomasi",
+    answer: "Alur yang dikerjakan berulang kami otomasi agar waktu tim kembali ke pekerjaan yang penting.",
+  },
+  {
+    label: "Integrasi Sistem",
+    problem: "Sistem belum terintegrasi untuk mendukung operasional",
+    answer: "Perangkat yang sudah dipakai dihubungkan supaya data mengalir tanpa input ganda.",
+  },
 ];
 
 export const about = {
@@ -23,19 +47,66 @@ export const about = {
     "Novara Project adalah penyedia layanan teknologi informasi dan solusi digital: website, sistem informasi, database, integrasi AI, otomasi proses kerja, dan dukungan teknis.",
     "Kami membantu bisnis dan organisasi memanfaatkan teknologi untuk efisiensi, akses informasi, pengelolaan data, dan pengembangan usaha.",
   ],
-  stats: [
-    { value: "5", label: "Kategori layanan" },
-    { value: "6", label: "Tahap kerja terstruktur" },
-    { value: "4", label: "Segmen klien utama" },
-  ],
 };
 
 export const services = [
-  { icon: "Globe", title: "Website Development", desc: "Company profile, landing page, e-commerce, dan website acara." },
-  { icon: "Database", title: "Database & Web Systems", desc: "Sistem informasi, dashboard admin, inventaris dan aset." },
-  { icon: "Bot", title: "AI & Automation", desc: "Chatbot, integrasi AI dan API, otomasi alur kerja dan laporan." },
-  { icon: "PenTool", title: "UI/UX & Prototype", desc: "Wireframe, desain antarmuka, dan prototype interaktif." },
-  { icon: "IdCard", title: "Digital Profiles", desc: "Digital CV, portofolio, profil founder dan organisasi." },
+  {
+    icon: "Globe",
+    title: "Website Development",
+    desc: "Company profile, landing page, e-commerce, dan website acara.",
+    details: [
+      "Company profile dan landing page yang siap dipakai memasarkan",
+      "Toko online dengan katalog, keranjang, dan proses checkout",
+      "Website acara: informasi, registrasi, dan pengumuman peserta",
+      "Struktur konten dan SEO dasar agar mudah ditemukan di pencarian",
+      "Tampilan menyesuaikan ponsel, tablet, dan desktop",
+    ],
+  },
+  {
+    icon: "Database",
+    title: "Database & Web Systems",
+    desc: "Sistem informasi, dashboard admin, inventaris dan aset.",
+    details: [
+      "Sistem informasi untuk data anggota, pelanggan, atau inventaris",
+      "Dashboard admin dengan hak akses berbeda tiap peran",
+      "Pencarian, penyaringan, dan ekspor data ke spreadsheet",
+      "Riwayat perubahan sehingga data bisa ditelusuri kembali",
+      "Pemindahan data dari spreadsheet yang sudah berjalan",
+    ],
+  },
+  {
+    icon: "Bot",
+    title: "AI & Automation",
+    desc: "Chatbot, integrasi AI dan API, otomasi alur kerja dan laporan.",
+    details: [
+      "Chatbot yang menjawab pertanyaan berulang dari pelanggan",
+      "Integrasi API dan layanan AI ke alur kerja yang sudah ada",
+      "Otomasi tugas berulang: rekap, notifikasi, dan penjadwalan",
+      "Laporan berkala yang tersusun sendiri tanpa input manual",
+    ],
+  },
+  {
+    icon: "PenTool",
+    title: "UI/UX & Prototype",
+    desc: "Wireframe, desain antarmuka, dan prototype interaktif.",
+    details: [
+      "Wireframe dan alur layar disepakati sebelum pengembangan dimulai",
+      "Desain antarmuka yang konsisten dengan identitas Anda",
+      "Prototype interaktif yang bisa dicoba sebelum dibangun",
+      "Penyerahan komponen desain agar mudah dilanjutkan tim lain",
+    ],
+  },
+  {
+    icon: "IdCard",
+    title: "Digital Profiles",
+    desc: "Digital CV, portofolio, profil founder dan organisasi.",
+    details: [
+      "Digital CV dan portofolio personal yang rapi dibagikan",
+      "Profil founder dan tim dalam satu halaman",
+      "Profil organisasi dengan tautan dan kontak terpusat",
+      "Tautan pendek yang mudah disebar di media sosial",
+    ],
+  },
 ];
 
 export const supportServices = {
@@ -44,11 +115,41 @@ export const supportServices = {
 };
 
 export const solutions = [
-  { icon: "Briefcase", title: "Business Digital Presence", desc: "Website profesional untuk identitas digital bisnis." },
-  { icon: "ClipboardList", title: "Operational Management Systems", desc: "Sistem informasi untuk data, inventaris, dan anggota." },
-  { icon: "CalendarCheck", title: "Event & Organization Systems", desc: "Registrasi, database peserta, dan dashboard admin." },
-  { icon: "Workflow", title: "Reporting & Workflow Automation", desc: "Otomasi kerja berulang dan pelaporan terstruktur." },
-  { icon: "Rocket", title: "Digital Product Development", desc: "Desain, prototype, pengujian, dan implementasi." },
+  {
+    icon: "Briefcase",
+    title: "Business Digital Presence",
+    desc: "Website profesional untuk identitas digital bisnis.",
+    outcome: "Calon klien menemukan dan menilai Anda sebelum sempat bertanya.",
+    fit: ["UMKM", "Perusahaan"],
+  },
+  {
+    icon: "ClipboardList",
+    title: "Operational Management Systems",
+    desc: "Sistem informasi untuk data, inventaris, dan anggota.",
+    outcome: "Data operasional berkumpul di satu tempat, bukan tersebar di banyak file.",
+    fit: ["Perusahaan", "Organisasi"],
+  },
+  {
+    icon: "CalendarCheck",
+    title: "Event & Organization Systems",
+    desc: "Registrasi, database peserta, dan dashboard admin.",
+    outcome: "Pendaftaran berjalan sendiri dan data peserta langsung terekap.",
+    fit: ["Penyelenggara acara", "Komunitas"],
+  },
+  {
+    icon: "Workflow",
+    title: "Reporting & Workflow Automation",
+    desc: "Otomasi kerja berulang dan pelaporan terstruktur.",
+    outcome: "Laporan rutin tersusun tanpa memakan waktu tim setiap periode.",
+    fit: ["Perusahaan", "Organisasi"],
+  },
+  {
+    icon: "Rocket",
+    title: "Digital Product Development",
+    desc: "Desain, prototype, pengujian, dan implementasi.",
+    outcome: "Ide diuji lebih dulu sebelum biaya pengembangan besar dikeluarkan.",
+    fit: ["Startup", "Perusahaan"],
+  },
 ];
 
 export const process = [
