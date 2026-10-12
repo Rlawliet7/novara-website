@@ -15,7 +15,7 @@ export function FAQ() {
       tone="light"
       eyebrow="FAQ"
       title="Pertanyaan yang sering ditanyakan"
-      description="Jawaban cepat untuk keputus Anda. Belum ketemu jawabannya? Hubungi kami langsung."
+      description="Jawaban cepat untuk keputusan Anda. Belum ketemu jawabannya? Hubungi kami langsung."
     >
       <Reveal stagger className="max-w-3xl mx-auto">
         <dl className="space-y-3">

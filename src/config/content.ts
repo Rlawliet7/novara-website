@@ -244,10 +244,6 @@ export const faq = [
     a: "Utama: Next.js, React, TypeScript, Tailwind CSS, PostgreSQL, Prisma. AI: OpenAI API, LangChain. Deploy: Vercel, Docker. Detail di bagian Teknologi.",
   },
   {
-    q: "Apakah Novara bantu hosting & domain?",
-    b: "Bisa bantu beli/konfigurasi domain dan setup hosting (Vercel, VPS, atau shared hosting). Biaya domain/hosting ditanggung klien.",
-  },
-  {
     q: "Bagaimana cara memulai konsultasi?",
     a: "Klik tombol “Konsultasi Gratis” di halaman ini, isi formulir singkat, atau hubungi via WhatsApp/Email. Kami balas maksimal 1 hari kerja.",
   },

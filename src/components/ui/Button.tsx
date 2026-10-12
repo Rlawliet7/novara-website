@@ -7,8 +7,7 @@ const styles: Record<Variant, string> = {
     "bg-electric text-white hover:bg-electric-dark shadow-lg shadow-electric/25",
   secondary:
     "bg-white text-navy-900 border border-line hover:border-electric hover:text-electric",
-  "ghost-light":
-    "border border-white/25 text-white hover:bg-white/10",
+  "ghost-light": "border border-white/25 text-white hover:bg-white/10",
 };
 
 export function Button({

@@ -10,8 +10,8 @@ export const siteConfig = {
   contact: {
     email: "novaraprojectid.hub@gmail.com",
     instagram: "novaraproject",
-    // Format internasional tanpa + dan spasi, contoh: "6281234567890". Kosong = tombol WA disembunyikan.
-    whatsapp: "",
+    // Format internasional tanpa + dan spasi, contoh: "6281234567890".
+    whatsapp: "628XXXXXXXXXX",
     website: "",
   },
 } as const;

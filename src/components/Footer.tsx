@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div>
-            <Logo light={false} />
+            <Logo light={true} />
             <p className="mt-3 text-sm font-medium text-electric">{siteConfig.tagline}</p>
             <p className="mt-1 text-sm text-white/70">{siteConfig.descriptor}</p>
           </div>
