@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { afterHydration } from "./afterHydration";
 
 /**
@@ -17,9 +18,10 @@ import { afterHydration } from "./afterHydration";
 export function Choreography() {
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     let context: gsap.Context | undefined;
+    const splits: SplitText[] = [];
 
     const cancel = afterHydration(() => {
       context = gsap.context(() => {
@@ -66,11 +68,38 @@ export function Choreography() {
             },
           );
         });
+
+        // 3. Kalimat visi muncul kata per kata, naik dari balik garis barisnya.
+        //    `mask: "lines"` memberi tiap baris pembungkus yang memotong, jadi
+        //    kata-katanya seolah terbit dari bawah baris itu.
+        gsap.utils.toArray<HTMLElement>("[data-cine-split]").forEach((target) => {
+          splits.push(SplitText.create(target, {
+            type: "lines,words",
+            mask: "lines",
+            // Menaruh aria-label di paragrafnya dan menyembunyikan pecahan kata
+            // dari pembaca layar, jadi kalimatnya tetap terbaca utuh.
+            aria: "auto",
+            // Memecah ulang setelah font selesai dimuat dan saat lebar berubah,
+            // supaya batas barisnya tidak pernah salah.
+            autoSplit: true,
+            // Docs SplitText: kalau autoSplit menyala, animasinya WAJIB dibuat
+            // di sini. Tween yang dikembalikan membuat progresnya ikut terbawa
+            // saat pecah ulang, jadi teks tidak pernah tertinggal tersembunyi.
+            onSplit: (self) => gsap.from(self.words, {
+              yPercent: 115,
+              duration: .8,
+              ease: "power3.out",
+              stagger: .022,
+              scrollTrigger: { trigger: target, start: "top 82%", once: true },
+            }),
+          }));
+        });
       });
     });
 
     return () => {
       cancel();
+      splits.forEach((split) => split.revert());
       context?.revert();
     };
   }, []);

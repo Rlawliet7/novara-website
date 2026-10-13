@@ -7,11 +7,23 @@ export function VisionMission() {
   return (
     <Section id="vision" tone="dark">
       <div className="grid gap-12 lg:grid-cols-2">
-        <Reveal>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-teal">Visi</p>
-          <Quote size={32} className="mb-4 text-electric" aria-hidden="true" />
-          <p className="text-2xl font-semibold leading-snug tracking-tight sm:text-3xl">{vision}</p>
-        </Reveal>
+        <div>
+          <Reveal>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-teal">Visi</p>
+            <Quote size={32} className="mb-4 text-electric" aria-hidden="true" />
+          </Reveal>
+
+          {/* Sengaja di luar <Reveal>: kemunculannya dipegang SplitText di
+              Choreography, dan satu elemen tidak boleh punya dua pemilik
+              animasi. Tanpa JavaScript atau saat reduced motion, paragraf ini
+              tampil apa adanya. */}
+          <p
+            data-cine-split
+            className="text-2xl font-semibold leading-snug tracking-tight sm:text-3xl"
+          >
+            {vision}
+          </p>
+        </div>
 
         <Reveal delay={120}>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-teal">Misi</p>
