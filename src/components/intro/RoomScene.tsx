@@ -1,19 +1,23 @@
 "use client";
 
 import { RoomLife } from "./RoomLife";
+import { SunRig, SunShafts } from "./RoomSun";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 import { useEffect, useRef, type RefObject } from "react";
-import { ACESFilmicToneMapping, MathUtils, PCFShadowMap, Scene, Vector3 } from "three";
+import { ACESFilmicToneMapping, MathUtils, PCFSoftShadowMap, Scene, Vector3 } from "three";
 import { CSS3DObject, CSS3DRenderer } from "three/addons/renderers/CSS3DRenderer.js";
 
 type Point = [number, number, number];
 type SceneProps = { scrollRoot: RefObject<HTMLDivElement | null>; onReady: () => void; onError: () => void; thoughtRef: RefObject<HTMLDivElement | null>; animated: boolean };
 
-function Box({ at, size, color, radius = .025, rotation = [0, 0, 0], metal = 0 }: {
-  at: Point; size: Point; color: string; radius?: number; rotation?: Point; metal?: number;
+function Box({ at, size, color, radius = .025, rotation = [0, 0, 0], metal = 0, shadow = true }: {
+  at: Point; size: Point; color: string; radius?: number; rotation?: Point; metal?: number; shadow?: boolean;
 }) {
-  return <RoundedBox args={size} radius={radius} smoothness={2} position={at} rotation={rotation} castShadow receiveShadow>
+  // `shadow={false}` dipakai untuk cangkang ruangan: jendela di scene ini kotak
+  // padat, bukan lubang, jadi kalau ia membuang bayangan matahari tidak akan
+  // pernah masuk ke dalam kamar.
+  return <RoundedBox args={size} radius={radius} smoothness={2} position={at} rotation={rotation} castShadow={shadow} receiveShadow>
     <meshStandardMaterial color={color} roughness={metal ? .32 : .8} metalness={metal} />
   </RoundedBox>;
 }
@@ -40,7 +44,7 @@ function Plant({ at, scale = 1 }: { at: Point; scale?: number }) {
 
 function Window() {
   return <group position={[0, 3.18, -3.72]}>
-    <Box at={[0, 0, 0]} size={[4.15, 2.75, .17]} color="#234a78" />
+    <Box at={[0, 0, 0]} size={[4.15, 2.75, .17]} color="#234a78" shadow={false} />
     <mesh position={[0, 0, .1]}>
       <planeGeometry args={[3.9, 2.5]} />
       <meshBasicMaterial color="#83cbea" />
@@ -217,7 +221,7 @@ function ContextGuard({ onError }: { onError: () => void }) {
 
 export default function RoomScene({ scrollRoot, onReady, onError, thoughtRef, animated }: SceneProps) {
   return <Canvas
-    shadows={{ type: PCFShadowMap }}
+    shadows={{ type: PCFSoftShadowMap }}
     frameloop="demand"
     dpr={[1, 1.5]}
     camera={{ position: [5.3, 3.8, 7.7], fov: 40, near: .05, far: 45 }}
@@ -226,18 +230,25 @@ export default function RoomScene({ scrollRoot, onReady, onError, thoughtRef, an
     fallback={<div className="room-loading">Browser ini tidak mendukung tampilan 3D.</div>}
   >
     <color attach="background" args={["#0b1833"]} />
-    <ambientLight intensity={.7} />
-    <hemisphereLight args={["#e8f2ff", "#183a71", 1.5]} />
-    <directionalLight position={[-3, 7, 1]} intensity={3} color="#c5ecff" castShadow shadow-mapSize={[1024, 1024]} shadow-camera-left={-7} shadow-camera-right={7} shadow-camera-top={7} shadow-camera-bottom={-7} shadow-normalBias={.035} />
-    <directionalLight position={[3, 4, 5]} intensity={1.1} color="#74b9ff" />
-    <pointLight position={[-2.8, 2.8, -2.7]} intensity={5} color="#00c8ff" distance={7} />
-    <pointLight position={[3.5, 1.8, 1.5]} intensity={3} color="#075bff" distance={6} />
+
+    {/* Ambient dan hemisphere diturunkan supaya matahari punya ruang untuk terbaca. */}
+    <ambientLight intensity={.56} />
+    <hemisphereLight args={["#dbeaff", "#16325f", 1.05]} />
+
+    {/* Matahari: satu-satunya sumber yang membuang bayangan, agar arah bayangan
+        selalu sejalan dengan berkas cahaya yang terlihat. */}
+    <SunRig />
+
+    {/* Isian dingin dari arah kamera, menjaga sisi bayangan tidak mati. */}
+    <directionalLight position={[3, 4, 5]} intensity={.7} color="#74b9ff" />
+    <pointLight position={[-2.8, 2.8, -2.7]} intensity={3} color="#00c8ff" distance={7} />
+    <pointLight position={[3.5, 1.8, 1.5]} intensity={1.7} color="#075bff" distance={6} />
     <group>
-      <Box at={[0, -.15, 0]} size={[10.2, .25, 10]} color="#233b60" />
+      <Box at={[0, -.15, 0]} size={[10.2, .25, 10]} color="#233b60" shadow={false} />
       {Array.from({ length: 24 }, (_, i) => <Box key={i} at={[-4.9 + i * .425, -.017, 0]} size={[.418, .02, 9.8]} color={["#355579", "#304d70", "#3a5c80", "#2e4b6c"][i % 4]} radius={.001} />)}
-      <Box at={[0, 2.65, -3.95]} size={[10.2, 5.5, .3]} color="#20365e" />
-      <Box at={[-5.08, 2.65, 0]} size={[.2, 5.5, 8]} color="#152c50" />
-      <Box at={[5.08, 2.65, -1.2]} size={[.2, 5.5, 5.5]} color="#1b3158" />
+      <Box at={[0, 2.65, -3.95]} size={[10.2, 5.5, .3]} color="#20365e" shadow={false} />
+      <Box at={[-5.08, 2.65, 0]} size={[.2, 5.5, 8]} color="#152c50" shadow={false} />
+      <Box at={[5.08, 2.65, -1.2]} size={[.2, 5.5, 5.5]} color="#1b3158" shadow={false} />
       <Box at={[0, .095, -3.74]} size={[10, .18, .07]} color="#447aa3" />
       <Box at={[-4.94, .095, 0]} size={[.07, .18, 7.5]} color="#447aa3" />
       <Box at={[0, .005, 1.2]} size={[4.7, .04, 3.3]} color="#214978" radius={.015} />
@@ -246,6 +257,7 @@ export default function RoomScene({ scrollRoot, onReady, onError, thoughtRef, an
       <Desk onReady={onReady} />
       <Furniture />
     </group>
+    <SunShafts animated={animated} />
     <CameraTravel scrollRoot={scrollRoot} />
     <RoomLife scrollRoot={scrollRoot} thoughtRef={thoughtRef} animated={animated} />
     <ContextGuard onError={onError} />
