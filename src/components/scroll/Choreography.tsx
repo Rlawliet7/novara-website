@@ -24,13 +24,17 @@ export function Choreography() {
     const cancel = afterHydration(() => {
       context = gsap.context(() => {
         // 1. Bab yang mundur. Saat sebuah seksi beranjak keluar lewat atas,
-        //    isinya meredup dan menjauh sedikit, jadi seksi berikutnya terasa
-        //    ditumpuk di atasnya alih-alih dipotong mendadak. Ini yang bikin
-        //    perpindahan antarbagian terasa menyambung.
+        //    isinya meredup, jadi seksi berikutnya terasa ditumpuk di atasnya
+        //    alih-alih dipotong mendadak. Ini yang bikin perpindahan
+        //    antarbagian terasa menyambung.
+        //
+        //    Sengaja peredupan saja, tanpa menggeser posisi: kotak seksinya
+        //    tidak ikut bergeser, jadi setiap pergeseran isi hanya menyisakan
+        //    celah kosong di bawahnya. Tanpa transform, pembungkus ini juga
+        //    tidak menjadi containing block bagi keturunan position: fixed.
         gsap.utils.toArray<HTMLElement>("[data-chapter]").forEach((chapter) => {
           gsap.to(chapter, {
             opacity: .45,
-            y: -40,
             ease: "none",
             scrollTrigger: {
               trigger: chapter,
