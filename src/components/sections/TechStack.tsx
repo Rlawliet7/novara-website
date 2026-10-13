@@ -57,8 +57,8 @@ export function TechStack() {
       id="tech"
       tone="mist"
       eyebrow="Teknologi"
-      title="Teknologi & tools yang kami pakai"
-      description="Stack modern, stabil, dan banyak dipakai industri. Kami pilih yang tepat untuk tiap proyek, bukan yang paling hype."
+      title="Tools yang kami pakai tiap hari"
+      description="Semuanya teknologi yang stabil dan dipakai banyak perusahaan. Kami pilih yang paling pas buat proyekmu, bukan yang lagi rame."
     >
       <Reveal className="tech-ribbon">
         {LANES.map((lane, index) => (

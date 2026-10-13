@@ -31,18 +31,18 @@ export function Approach() {
     <Section
       id="about"
       eyebrow="Tantangan & Pendekatan"
-      title="Tantangan yang menghambat pertumbuhan digital"
-      description="Novara menerjemahkan kebutuhan ini menjadi solusi yang praktis dan terukur."
+      title="Hal yang sering bikin bisnis mandek di digital"
+      description="Kalau salah satunya kena di kamu, tenang — semuanya ada jalan keluarnya."
     >
       <Reveal>
         <div className="grid gap-6 md:grid-cols-2 md:gap-10">
           <p className="text-lg leading-relaxed text-slate-600">
-            Banyak bisnis dan organisasi tahu mereka butuh teknologi, tapi tidak tahu
-            dari mana memulai. Kami mengidentifikasi akar masalahnya terlebih dahulu.
+            Banyak yang udah sadar butuh teknologi, tapi bingung mulai dari mana.
+            Makanya kami cari dulu akar masalahnya sebelum nawarin apa pun.
           </p>
           <p className="text-lg leading-relaxed text-slate-600">
-            Pendekatan kami: diagnostik dulu, resep lalu. Tanpa diagnosa yang tepat,
-            solusi teknologi justru menambah kompleksitas dan biaya.
+            Prinsipnya: periksa dulu, baru kasih obat. Kalau diagnosanya meleset,
+            teknologi malah bikin ribet dan boros.
           </p>
         </div>
       </Reveal>

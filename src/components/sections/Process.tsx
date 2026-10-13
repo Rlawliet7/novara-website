@@ -6,10 +6,12 @@ export function Process() {
   return (
     <Section
       id="process"
+      // Panggung 3D dan rail tahapannya memakai position: sticky.
+      chapter={false}
       tone="light"
       eyebrow="Proses Kerja"
-      title="Proses kerja terstruktur dalam enam tahap"
-      description="Lingkup, jadwal, dan hasil akhir jelas sejak awal, dari konsultasi sampai dukungan lanjutan."
+      title="Enam tahap, dari ngobrol sampai serah terima"
+      description="Kamu tahu persis lagi di tahap mana, apa yang dikerjain, dan kapan selesainya."
     >
       <Reveal>
         <ProcessJourney />

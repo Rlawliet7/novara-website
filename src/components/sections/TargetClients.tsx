@@ -1,9 +1,19 @@
-import { Building2, Store, Users, CalendarDays } from "lucide-react";
+import Image from "next/image";
 import { clients, clientPriority } from "@/config/content";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 
-const icons = [Building2, Store, Users, CalendarDays];
+/**
+ * Foto ilustratif berlisensi bebas (Unsplash License) yang disimpan lokal di
+ * public/clients, bukan dokumentasi klien Novara. Alt-nya menggambarkan isi
+ * fotonya saja supaya tidak terbaca sebagai klaim.
+ */
+const PHOTOS = [
+  { src: "/clients/enterprise.jpg", alt: "Deretan gedung perkantoran bertingkat", accent: "#2f6bff" },
+  { src: "/clients/umkm.jpg", alt: "Interior toko ritel kecil dengan rak produk", accent: "#12b083" },
+  { src: "/clients/komunitas.jpg", alt: "Empat orang berdiskusi mengelilingi meja", accent: "#4a44d6" },
+  { src: "/clients/acara.jpg", alt: "Peserta duduk menghadap panggung di sebuah acara", accent: "#1b9df0" },
+];
 
 export function TargetClients() {
   return (
@@ -11,41 +21,48 @@ export function TargetClients() {
       id="clients"
       tone="light"
       eyebrow="Target Klien"
-      title="Siapa yang kami layani"
+      title="Biasanya kami kerja bareng siapa"
       description={clientPriority}
     >
       <Reveal>
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div className="space-y-6">
-            <p className="text-lg leading-relaxed text-slate-600">
-              Kami tidak mencoba melayani semua orang. Fokus kami pada segmen yang kebutuhannya
-              jelas, di mana teknologi memberikan dampak nyata dan terukur.
-            </p>
-            <p className="text-lg leading-relaxed text-slate-600">
-              Dari UMKM yang mulai membangun identitas digital, hingga institusi yang butuh
-              sistem terintegrasi — kami menyesuaikan lingkup, jadwal, dan biaya dengan realitas Anda.
-            </p>
-          </div>
-          <div className="space-y-5">
-            {clients.map((c, i) => {
-              const Cmp = icons[i];
-              return (
-                <article
-                  key={c.title}
-                  className="group flex gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-electric/40 hover:shadow-xl hover:shadow-electric/10"
-                >
-                  <span className="mt-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-electric/10 text-electric group-hover:bg-electric group-hover:text-white transition-colors">
-                    <Cmp size={20} aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="font-bold text-navy-900">{c.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{c.desc}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+        <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+          <p className="text-lg leading-relaxed text-slate-600">
+            Kami nggak berusaha ngelayanin semua orang. Fokusnya ke mereka yang
+            kebutuhannya udah jelas, di mana teknologi beneran kelihatan dampaknya.
+          </p>
+          <p className="text-lg leading-relaxed text-slate-600">
+            Dari UMKM yang baru mau punya identitas digital, sampai institusi yang butuh
+            sistem terhubung — lingkup, jadwal, dan biayanya kami sesuaikan sama kondisimu.
+          </p>
         </div>
+      </Reveal>
+
+      {/* Di layar sempit daftar ini bergulir mendatar; di desktop jadi empat kolom. */}
+      <Reveal className="mt-12" stagger>
+        <ul className="client-rail" data-lenis-prevent>
+          {clients.map((item, i) => {
+            const photo = PHOTOS[i];
+            return (
+              <li
+                key={item.title}
+                className="client-card"
+                style={{ "--art": photo.accent } as React.CSSProperties}
+              >
+                <div className="client-frame" data-cine-photo>
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 1023px) 90vw, 24vw"
+                    className="client-photo"
+                  />
+                  <span className="client-tint" aria-hidden="true" />
+                </div>
+                <h3 className="client-title">{item.title}</h3>
+              </li>
+            );
+          })}
+        </ul>
       </Reveal>
     </Section>
   );

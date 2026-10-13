@@ -34,7 +34,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={jakarta.variable}>
-      <body>{children}</body>
+      <body>
+        {/* Reveal mulai dari keadaan tersembunyi supaya tidak ada kedipan saat
+            hydration. Tanpa JavaScript observernya tidak pernah jalan, jadi
+            isinya dipaksa tampil di sini. */}
+        <noscript>
+          <style>{`.reveal,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

@@ -245,26 +245,38 @@ function System({ panel, overlay, halo, active, animated }: Omit<Props, "onReady
       target.current = Math.max(0, Math.min(1, (innerHeight - rect.top - innerHeight * .2) / span));
       invalidate();
     };
+    // getBoundingClientRect memaksa layout, jadi satu event scroll jangan sampai
+    // memicunya berkali-kali — satu pengukuran per frame sudah cukup.
+    let frame = 0;
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => { frame = 0; measure(); });
+    };
+
     measure();
     const observer = new IntersectionObserver(([entry]) => { onScreen.current = entry.isIntersecting; }, { threshold: 0 });
     observer.observe(element);
-    addEventListener("scroll", measure, { passive: true });
-    addEventListener("resize", measure);
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
     return () => {
       observer.disconnect();
-      removeEventListener("scroll", measure);
-      removeEventListener("resize", measure);
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
     };
   }, [invalidate, panel]);
 
   useEffect(() => {
     if (!animated) return;
-    // Keep the demand renderer at ~25 fps, and only while the panel is on screen.
+    // Laju adaptif, seperti di ProcessScene: 60fps selama keping masih bergerak
+    // (25fps terasa tersendat saat scroll), lalu berhenti begitu semuanya diam.
+    let tick = 0;
     const timer = window.setInterval(() => {
       if (!onScreen.current || document.hidden) return;
-      // Once everything has settled, stop drawing until the scroll or the hover changes.
-      if (!idle.current || active.current !== lastActive.current) invalidate();
-    }, 40);
+      tick += 1;
+      if (!idle.current) invalidate();
+      else if (active.current !== lastActive.current && tick % 2 === 0) invalidate();
+    }, 16);
     return () => clearInterval(timer);
   }, [active, animated, invalidate]);
 

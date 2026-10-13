@@ -33,11 +33,11 @@ export function Contact() {
         <Reveal>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-teal">Kontak</p>
           <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Mari berkolaborasi.
+            Ngobrol dulu, yuk.
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-white/70">
-            Let&apos;s discuss your next digital project. Konsultasi awal gratis untuk memahami
-            kebutuhan dan tujuan Anda.
+            Cerita aja dulu soal rencanamu. Konsultasi awalnya gratis, dan kami balas
+            maksimal 1 hari kerja.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href={wa ?? mailtoUrl} external={!!wa}>

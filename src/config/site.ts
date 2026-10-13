@@ -4,14 +4,14 @@ export const siteConfig = {
   descriptor: "IT Services & Digital Solutions",
    copyrightYear: "2026",
   description:
-    "Novara Project menyediakan layanan teknologi informasi dan solusi digital: website, sistem informasi, database, integrasi AI, otomasi proses kerja, dan dukungan teknis untuk bisnis, organisasi, dan institusi.",
+    "Novara Project bantu bisnis, organisasi, dan institusi urusan website, sistem informasi, database, integrasi AI, otomasi kerja, dan dukungan teknis.",
   // Isi setelah domain tersedia, contoh: "https://novaraproject.id"
   url: "https://example.com",
   contact: {
     email: "novaraprojectid.hub@gmail.com",
     instagram: "novaraproject",
     // Format internasional tanpa + dan spasi, contoh: "6281234567890".
-    whatsapp: "628XXXXXXXXXX",
+    whatsapp: "",
     website: "",
   },
 } as const;

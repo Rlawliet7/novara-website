@@ -17,7 +17,7 @@ export function Portfolio() {
       id="portfolio"
       tone="mist"
       eyebrow="Portofolio & Studi Kasus"
-      title="Portofolio dan studi kasus"
+      title="Yang pernah kami kerjakan"
       description={portfolio.note}
     >
       {hasItems ? (
@@ -60,7 +60,7 @@ export function Portfolio() {
               <span className="grid h-12 w-12 place-items-center rounded-xl bg-electric/10 text-electric">
                 <FolderOpen size={22} aria-hidden="true" />
               </span>
-              <h3 className="mt-5 text-lg font-bold text-navy-900">Studi kasus sedang disiapkan</h3>
+              <h3 className="mt-5 text-lg font-bold text-navy-900">Studi kasusnya lagi kami siapkan</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-slate-600">
                 Setiap proyek yang dipublikasikan akan dilengkapi label yang jelas: proyek klien,
                 proyek demonstrasi, atau prototype. Hubungi kami untuk melihat contoh pekerjaan yang relevan.

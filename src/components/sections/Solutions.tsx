@@ -9,18 +9,18 @@ export function Solutions() {
       id="solutions"
       tone="dark"
       eyebrow="Solusi"
-      title="Solusi yang disesuaikan, bukan produk yang dipaksakan"
-      description="Lima area solusi yang paling sering dibutuhkan bisnis, organisasi, dan penyelenggara acara."
+      title="Solusinya nyesuaiin kamu, bukan sebaliknya"
+      description="Lima hal yang paling sering dibutuhin bisnis, organisasi, dan penyelenggara acara."
     >
       <Reveal>
         <div className="grid gap-6 border-l-2 border-electric/40 pl-6 md:grid-cols-2 md:gap-10">
           <p className="text-base leading-relaxed text-white/70">
-            Setiap organisasi memiliki konteks yang berbeda — skala, anggaran, maturitas digital,
-            dan budaya kerja. Solusi kami tidak pernah “satu ukuran untuk semua”.
+            Tiap tim punya kondisi beda — skalanya, budgetnya, kebiasaan kerjanya.
+            Jadi kami nggak pernah pakai pendekatan “satu ukuran buat semua”.
           </p>
           <p className="text-base leading-relaxed text-white/70">
-            Kami mendesain arsitektur sistem, alur kerja, dan antarmuka yang cocok dengan
-            kondisi aktual Anda hari ini, namun siap diskalakan untuk besok.
+            Sistem, alur kerja, dan tampilannya kami rancang sesuai kondisimu sekarang,
+            tapi tetap siap dibesarkan pas kamu tumbuh nanti.
           </p>
         </div>
       </Reveal>

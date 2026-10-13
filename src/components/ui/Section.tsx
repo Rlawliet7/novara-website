@@ -16,6 +16,7 @@ export function Section({
   tone = "light",
   children,
   className = "",
+  chapter = true,
 }: {
   id: string;
   eyebrow?: string;
@@ -24,11 +25,17 @@ export function Section({
   tone?: Tone;
   children: React.ReactNode;
   className?: string;
+  /**
+   * Ikut koreografi "bab mundur" saat seksi ini keluar layar. Matikan untuk
+   * seksi yang punya anak `position: sticky` — transform pada pembungkusnya
+   * akan merusak posisi lengketnya.
+   */
+  chapter?: boolean;
 }) {
   const dark = tone === "dark";
   return (
     <section id={id} data-nav-theme={dark ? "dark" : "light"} className={`${tones[tone]} py-20 md:py-28 ${className}`}>
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8" data-chapter={chapter ? "" : undefined}>
         {(eyebrow || title) && (
           <Reveal className="mb-12 max-w-2xl">
             {eyebrow && (

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Logo } from "@/components/ui/Logo";
 import { introStories } from "./stories";
+import { scrollToY } from "@/components/scroll/lenisBus";
 import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -97,7 +98,9 @@ export function RoomIntro({ children }: { children: ReactNode }) {
   function skip() {
     const element = root.current;
     if (!element) return;
-    window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top + element.offsetHeight - (element.querySelector<HTMLElement>(".room-stage")?.offsetHeight ?? window.innerHeight), behavior: "instant" });
+    // Lewat lenisBus: kalau Lenis sedang memegang scroll, lompatan native akan
+    // langsung ditarik balik ke posisi internalnya.
+    scrollToY(window.scrollY + element.getBoundingClientRect().top + element.offsetHeight - (element.querySelector<HTMLElement>(".room-stage")?.offsetHeight ?? window.innerHeight), true);
     // Move keyboard focus into the website when skipping the decorative scene.
     const content = element.querySelector<HTMLElement>(".room-website");
     if (content) {

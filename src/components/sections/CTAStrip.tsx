@@ -12,11 +12,11 @@ export function CTAStrip() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="text-center">
           <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Siap memulai proyek digital Anda?
+            Punya ide? Yuk kita obrolin.
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-white/70">
-            Konsultasi gratis, tanpa komitmen. Kami bantu jelaskan lingkup, jadwal, dan estimasi biaya
-            yang transparan sejak awal.
+            Konsultasi awal gratis dan nggak ada komitmen apa pun. Kami bantu jelasin
+            lingkup, jadwal, dan estimasi biayanya dari awal — tanpa biaya tersembunyi.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button href={cta} external={cta.startsWith("http")} className="px-8 py-4 text-base">

@@ -1,3 +1,5 @@
+import { SmoothScroll } from "@/components/scroll/SmoothScroll";
+import { Choreography } from "@/components/scroll/Choreography";
 import { RoomIntro } from "@/components/intro/RoomIntro";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -37,6 +39,11 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      {/* Ditaruh di akhir pohon halaman, bukan di layout: efek di layout jalan
+          sebelum boundary konten selesai terhidrasi, dan style inline dari GSAP
+          akan terbaca React sebagai beda server/klien. */}
+      <SmoothScroll />
+      <Choreography />
     </>
   );
 }

@@ -15,6 +15,17 @@
 }
 
 html { scroll-behavior: smooth; }
+/* Saat Lenis aktif, dialah yang menghaluskan — smooth bawaan browser di atasnya
+   justru bikin lompatan ganda pada anchor. Di layar sentuh Lenis mati, jadi
+   aturan di atas yang dipakai. */
+html[data-lenis="on"] { scroll-behavior: auto; }
+
+/* Aturan wajib Lenis (disalin dari lenis/dist/lenis.css supaya tidak perlu
+   melewatkan CSS node_modules ke loader Tailwind). */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 section[id] { scroll-margin-top: 6.5rem; }
 
 body {
@@ -24,21 +35,34 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Animasi reveal dengan stagger */
-.reveal { opacity: 1; transform: none; }
-.reveal--animate { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
-.reveal--animate.is-visible { opacity: 1; transform: none; }
+/* Scroll reveal. Hidden from the very first paint, server-side included, so an
+   element never flashes in before the observer has had its say — that double
+   paint is what used to make scrolling feel jumpy. The <noscript> rule in
+   layout.tsx keeps everything readable when JavaScript is off.
+   will-change only while hidden: leaving it on every reveal would keep hundreds
+   of compositor layers alive for nothing. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .85s cubic-bezier(.22, 1, .36, 1), transform .85s cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; will-change: auto; }
 
-/* Stagger delays untuk anak-anak */
-.reveal-stagger > * { opacity: 1; transform: none; }
-.reveal-stagger--animate > * { opacity: 0; transform: translateY(20px); }
-.reveal-stagger--animate.is-visible > * { opacity: 1; transform: none; transition: opacity .6s ease-out, transform .6s ease-out; }
-.reveal-stagger--animate.is-visible > *:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger--animate.is-visible > *:nth-child(2) { transition-delay: 100ms; }
-.reveal-stagger--animate.is-visible > *:nth-child(3) { transition-delay: 200ms; }
-.reveal-stagger--animate.is-visible > *:nth-child(4) { transition-delay: 300ms; }
-.reveal-stagger--animate.is-visible > *:nth-child(5) { transition-delay: 400ms; }
-.reveal-stagger--animate.is-visible > *:nth-child(6) { transition-delay: 500ms; }
+/* Stagger: anak-anak menyusul satu per satu */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+.reveal-stagger.is-visible > * { opacity: 1; transform: none; will-change: auto; }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 70ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 280ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 350ms; }
 
 /* Hover effects untuk card */
 .card-hover {
@@ -88,7 +112,10 @@ body {
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal-stagger > * { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal.is-visible,
+  .reveal-stagger > *, .reveal-stagger.is-visible > * {
+    opacity: 1; transform: none; transition: none; transition-delay: 0s; will-change: auto;
+  }
   .card-hover, .btn-primary, .link-underline::after { transition: none; }
 }
 /* Floating glass navigation: theme follows the surface behind its center. */
@@ -161,8 +188,8 @@ body {
 .room-intro--active .room-website { position: relative; opacity: var(--website-opacity, 0); }
 .room-website:focus { outline: none; }
 .room-intro--active .room-website #home { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
-.room-intro--active .room-website .reveal { opacity: 1; transform: none; transition: none; }
-.room-intro--active .room-website .reveal--animate { opacity: 1; transform: none; }
+.room-intro--active .room-website .reveal,
+.room-intro--active .room-website .reveal-stagger > * { opacity: 1; transform: none; transition: none; transition-delay: 0s; }
 .room-experience { position: absolute; inset: 0; height: 100svh; z-index: 5; background: #0b1833; opacity: var(--room-opacity, 1); }
 .room-intro[data-entered="true"] .room-experience { visibility: hidden; pointer-events: none; }
 .room-canvas { position: absolute; inset: 0; }
@@ -193,7 +220,7 @@ html[data-room-intro="active"] .island-position * { pointer-events: none; }
 .island-position { transition: opacity .3s ease; }
 .monitor-preview { position: relative; width: 1280px; height: 800px; overflow: hidden; background: #060b1a; }
 .monitor-preview #home { min-height: 800px; display: flex; flex-direction: column; justify-content: center; }
-.monitor-preview .reveal, .monitor-preview .reveal--animate { opacity: 1 !important; transform: none !important; transition: none !important; }
+.monitor-preview .reveal, .monitor-preview .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; transition-delay: 0s !important; }
 .monitor-preview-nav { position: absolute; z-index: 10; top: 24px; left: 80px; right: 80px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #ffffff25; border-radius: 40px; padding: 15px 24px; color: #ffffffbb; background: #101c47; font-size: 13px; }
 .monitor-preview-cta { background: #f4f7fc; color: #101c47; border-radius: 30px; padding: 10px 16px; font-weight: 600; }
 @media (max-width: 640px) {
@@ -480,4 +507,88 @@ html[data-room-intro="active"] .island-position * { pointer-events: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .why-card, .why-card-rail, .why-card-no, .why-card-icon { transition: none; }
+}
+
+/* FAQ: daftar pertanyaan di kiri, jawaban tampil sebagai percakapan di ponsel */
+.faq-layout { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(28px, 4vw, 64px); align-items: center; }
+
+.faq-list { display: grid; gap: 10px; }
+.faq-q { display: flex; align-items: center; gap: 14px; width: 100%; padding: 18px 20px; border: 1px solid var(--color-line); border-radius: 14px; background: #fff; color: var(--color-navy-900); font-size: 16px; font-weight: 600; text-align: left; cursor: pointer; transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.faq-q:hover { transform: translateX(3px); border-color: #2f6bff4d; }
+.faq-q:focus-visible { outline: 2px solid var(--color-electric); outline-offset: 2px; }
+.faq-q[data-active="true"] { border-color: var(--color-electric); box-shadow: 0 10px 28px -14px #2f6bff80; }
+.faq-q-no { color: #94a3b8; font-size: 12px; font-weight: 800; letter-spacing: .12em; transition: color .25s ease; }
+.faq-q[data-active="true"] .faq-q-no { color: var(--color-electric); }
+.faq-q-mark { margin-left: auto; flex: none; color: #cbd5e5; transition: color .25s ease, transform .25s ease; }
+.faq-q[data-active="true"] .faq-q-mark { color: var(--color-electric); transform: translate(2px, -2px); }
+
+/* Ponsel: dimiringkan dengan perspektif CSS, tanpa WebGL sama sekali. */
+.phone { width: 310px; padding: 10px; border-radius: 42px; background: linear-gradient(160deg, #27385c, #0d1733); box-shadow: 0 40px 70px -30px #0a1230a6, 0 0 0 1px #ffffff14 inset; transform: perspective(1400px) rotateY(-11deg) rotateX(3deg); }
+.phone-glass { position: relative; display: flex; flex-direction: column; height: 530px; padding: 0 0 12px; border-radius: 34px; background: linear-gradient(180deg, #0b1733, #0a1326); overflow: hidden; }
+.phone-notch { position: absolute; top: 10px; left: 50%; width: 92px; height: 22px; border-radius: 99px; background: #060d1e; transform: translateX(-50%); }
+
+.phone-head { display: flex; align-items: center; gap: 11px; padding: 44px 18px 14px; border-bottom: 1px solid #ffffff14; }
+.phone-head span { display: grid; min-width: 0; }
+.phone-avatar { flex: none; width: 30px; height: 30px; object-fit: contain; }
+.phone-head strong { color: #fff; font-size: 14px; font-weight: 700; }
+.phone-head small { color: #7fe3c8; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Pesan menempel ke bawah seperti aplikasi chat sungguhan, bukan menggantung di atas. */
+.phone-chat { display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; margin-top: auto; padding: 18px 16px; overflow: hidden; }
+.bubble-out, .bubble-in { max-width: 86%; padding: 12px 15px; font-size: 13.5px; line-height: 1.55; animation: bubble .4s cubic-bezier(.22, 1, .36, 1) both; }
+.bubble-out { align-self: flex-end; border-radius: 16px 16px 5px 16px; background: linear-gradient(140deg, #2f6bff, #1f50d6); color: #fff; font-weight: 600; }
+.bubble-in { align-self: flex-start; border-radius: 16px 16px 16px 5px; background: #ffffff14; color: #d7e5fb; animation-delay: .12s; }
+
+.typing { display: inline-flex; gap: 5px; padding: 15px; }
+.typing i { width: 7px; height: 7px; border-radius: 50%; background: #93b6e8; animation: typing 1.1s ease-in-out infinite; }
+.typing i:nth-child(2) { animation-delay: .16s; }
+.typing i:nth-child(3) { animation-delay: .32s; }
+
+.phone-input { display: flex; align-items: center; gap: 10px; margin: 0 14px; padding: 11px 15px; border-radius: 99px; background: #ffffff0f; color: #7d93b8; font-size: 12.5px; }
+.phone-input i { width: 26px; height: 26px; margin-left: auto; border-radius: 50%; background: var(--color-electric); }
+
+@keyframes bubble { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes typing { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+
+@media (max-width: 1023px) {
+  .faq-layout { grid-template-columns: 1fr; justify-items: center; gap: 36px; }
+  .faq-list { width: 100%; order: 2; }
+  .phone { order: 1; width: 272px; transform: none; }
+  .phone-glass { height: 470px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-q, .faq-q-mark, .faq-q-no { transition: none; }
+  .bubble-out, .bubble-in { animation: none; }
+  .typing i { animation: none; opacity: .6; }
+}
+
+/* Target klien: kartu berilustrasi, bergulir mendatar di layar sempit */
+.client-rail { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.client-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--color-line); border-radius: 18px; background: #fff; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.client-card:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--art) 45%, transparent); box-shadow: 0 22px 44px -20px color-mix(in oklab, var(--art) 55%, transparent); }
+
+/* Bingkai rasio tetap: menukar ilustrasi dengan foto nanti tidak menggeser tata letak. */
+.client-frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: color-mix(in oklab, var(--art) 8%, white); border-bottom: 1px solid var(--color-line); }
+.client-photo { object-fit: cover; transition: transform .5s ease; }
+.client-card:hover .client-photo { transform: scale(1.04); }
+/* Lapisan tipis berwarna aksen agar keempat foto terasa satu keluarga. */
+.client-tint { position: absolute; inset: 0; background: linear-gradient(170deg, transparent 40%, color-mix(in oklab, var(--art) 26%, transparent)); pointer-events: none; }
+
+.client-title { margin: 18px 20px 20px; font-size: 18px; font-weight: 700; letter-spacing: -.01em; color: var(--color-navy-900); }
+
+@media (max-width: 1023px) {
+  /* Dibuat menembus tepi layar supaya kartu terakhir tidak terpotong canggung. */
+  .client-rail { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 86%; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(20px, 5vw, 32px)); padding-inline: clamp(20px, 5vw, 32px);
+    /* Tanpa ini snap meratakan kartu ke tepi kontainer dan membatalkan padding,
+       sehingga kartu pertama tidak sejajar dengan judul section. */
+    scroll-padding-inline: clamp(20px, 5vw, 32px); scrollbar-width: none; }
+  .client-rail::-webkit-scrollbar { display: none; }
+  .client-card { scroll-snap-align: start; }
+}
+@media (max-width: 639px) { .client-rail { grid-auto-columns: 90%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .client-card, .client-photo { transition: none; }
+  .client-rail { scroll-snap-type: none; }
 }

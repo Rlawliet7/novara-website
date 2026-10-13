@@ -8,11 +8,11 @@ export function Collaboration() {
     <Section
       id="collaboration"
       eyebrow="Peluang Kolaborasi"
-      title="Terbuka untuk berbagai bentuk kerja sama"
+      title="Kami terbuka buat segala bentuk kerja sama"
       description={collaboration.note}
     >
       <Reveal className="mb-8">
-        <p className="mb-3 text-sm font-semibold text-navy-900">Terbuka berkolaborasi dengan</p>
+        <p className="mb-3 text-sm font-semibold text-navy-900">Biasanya kami kolaborasi sama</p>
         <ul className="flex flex-wrap gap-2">
           {collaboration.openTo.map((o) => (
             <li

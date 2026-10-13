@@ -31,22 +31,22 @@ export function Hero() {
             {siteConfig.descriptor}
           </p>
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            Solusi Digital yang Menggerakkan Bisnis Anda Maju
+            Ide kamu, kami yang bikin jalan.
           </h1>
           <p className="mt-4 text-2xl font-semibold text-electric sm:text-3xl">
             {siteConfig.tagline}
           </p>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Kami menyediakan layanan teknologi informasi dan solusi digital untuk bisnis,
-            organisasi, dan institusi: dari website dan sistem informasi hingga integrasi AI
-            dan otomasi proses kerja.
+            Website, sistem informasi, integrasi AI, sampai otomasi kerja. Semua kami
+            garap buat bisnis, organisasi, dan institusi yang pengin kerjanya lebih
+            ringan dan datanya lebih rapi.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button href={cta} external={cta.startsWith("http")}>
               Konsultasi Gratis <ArrowRight size={16} />
             </Button>
             <Button href="#services" variant="ghost-light">
-              Lihat Layanan
+              Lihat yang Kami Kerjakan
             </Button>
           </div>
         </Reveal>

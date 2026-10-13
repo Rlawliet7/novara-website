@@ -12,8 +12,8 @@ export function WhyNovara() {
       id="why"
       tone="mist"
       eyebrow="Mengapa Novara"
-      title="Mengapa organisasi memilih Novara Project"
-      description="Didukung proses kerja, portofolio, dan kemampuan teknis yang nyata."
+      title="Kenapa banyak yang akhirnya pilih Novara"
+      description="Bukan janji manis — ini cara kami kerja setiap proyek."
     >
       {/* 3 + 2 kolom: seluruh sel terisi, tidak ada pengisi kosong. */}
       <Reveal stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">

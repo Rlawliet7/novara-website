@@ -8,8 +8,8 @@ export function Services() {
       id="services"
       tone="mist"
       eyebrow="Layanan"
-      title="Lima layanan utama untuk kebutuhan digital Anda"
-      description="Dari identitas digital hingga sistem dan otomasi, dirancang sesuai lingkup dan tujuan proyek."
+      title="Lima hal yang bisa kami kerjakan buat kamu"
+      description="Dari bikin identitas digital sampai sistem dan otomasi. Semuanya disesuaikan sama lingkup dan tujuan proyekmu."
     >
       <Reveal>
         <ServiceDeck />

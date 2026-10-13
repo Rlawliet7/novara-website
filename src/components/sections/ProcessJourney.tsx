@@ -101,12 +101,20 @@ export function ProcessJourney() {
       const index = Math.round(value * (process.length - 1));
       setActive((current) => (current === index ? current : index));
     };
+    // Pengukurannya membaca posisi tiap kartu, jadi mahal. Cukup sekali per frame.
+    let frame = 0;
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => { frame = 0; measure(); });
+    };
+
     measure();
-    addEventListener("scroll", measure, { passive: true });
-    addEventListener("resize", measure);
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
     return () => {
-      removeEventListener("scroll", measure);
-      removeEventListener("resize", measure);
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
     };
   }, [live, stacked]);
 

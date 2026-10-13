@@ -11,41 +11,41 @@ export const navItems = [
 export const challenges = [
   {
     label: "Identitas Digital",
-    problem: "Belum memiliki website atau identitas digital profesional",
-    answer: "Kami bangun website company profile yang menjelaskan siapa Anda dan apa yang Anda kerjakan.",
+    problem: "Belum punya website, jadi susah dipercaya calon klien",
+    answer: "Kami bikinin company profile yang langsung menjelaskan kamu siapa dan ngerjain apa.",
   },
   {
     label: "Informasi Produk",
-    problem: "Informasi produk dan layanan belum tersaji terstruktur",
-    answer: "Katalog dan halaman layanan disusun agar calon klien menemukan jawabannya tanpa bertanya dulu.",
+    problem: "Produk dan layanan masih dijelasin satu-satu lewat chat",
+    answer: "Katalog dan halaman layanan kami susun biar calon klien nemu jawabannya sendiri.",
   },
   {
     label: "Data Manual",
-    problem: "Data anggota, inventaris, atau pelanggan masih manual",
-    answer: "Catatan yang terpisah dipindahkan ke satu basis data yang rapi dan bisa dicari.",
+    problem: "Data anggota, stok, atau pelanggan masih numpuk di spreadsheet",
+    answer: "Semua catatan yang kececer kami pindahin ke satu database yang rapi dan gampang dicari.",
   },
   {
     label: "Dashboard & Laporan",
-    problem: "Butuh dashboard dan pelaporan untuk mengambil keputusan",
-    answer: "Angka penting ditampilkan dalam satu layar, sehingga keputusan tidak menunggu rekap manual.",
+    problem: "Mau ambil keputusan, tapi datanya belum kelihatan",
+    answer: "Angka pentingnya kami tampilin dalam satu layar, jadi nggak perlu nunggu rekap manual.",
   },
   {
     label: "Proses Berulang",
-    problem: "Proses kerja berulang yang berpotensi diotomasi",
-    answer: "Alur yang dikerjakan berulang kami otomasi agar waktu tim kembali ke pekerjaan yang penting.",
+    problem: "Kerjaan yang itu-itu terus bikin waktu habis",
+    answer: "Alur yang berulang kami otomasi, biar waktu tim balik ke kerjaan yang beneran penting.",
   },
   {
     label: "Integrasi Sistem",
-    problem: "Sistem belum terintegrasi untuk mendukung operasional",
-    answer: "Perangkat yang sudah dipakai dihubungkan supaya data mengalir tanpa input ganda.",
+    problem: "Antar sistem belum nyambung, jadi input datanya dua kali",
+    answer: "Tools yang udah kamu pakai kami hubungkan, biar datanya ngalir sendiri.",
   },
 ];
 
 export const about = {
-  heading: "Bukan sekadar produk teknologi.",
+  heading: "Kami bukan cuma jualan teknologi.",
   body: [
-    "Novara Project adalah penyedia layanan teknologi informasi dan solusi digital: website, sistem informasi, database, integrasi AI, otomasi proses kerja, dan dukungan teknis.",
-    "Kami membantu bisnis dan organisasi memanfaatkan teknologi untuk efisiensi, akses informasi, pengelolaan data, dan pengembangan usaha.",
+    "Novara Project bantu urusan website, sistem informasi, database, integrasi AI, otomasi kerja, sampai dukungan teknis.",
+    "Intinya: teknologi kami pakai buat bikin kerjaanmu lebih enteng, datamu lebih rapi, dan usahamu lebih gampang tumbuh.",
   ],
 };
 
@@ -53,25 +53,25 @@ export const services = [
   {
     icon: "Globe",
     title: "Website Development",
-    desc: "Company profile, landing page, e-commerce, dan website acara.",
+    desc: "Company profile, landing page, toko online, sampai website acara.",
     details: [
-      "Company profile dan landing page yang siap dipakai memasarkan",
-      "Toko online dengan katalog, keranjang, dan proses checkout",
-      "Website acara: informasi, registrasi, dan pengumuman peserta",
-      "Struktur konten dan SEO dasar agar mudah ditemukan di pencarian",
-      "Tampilan menyesuaikan ponsel, tablet, dan desktop",
+      "Company profile dan landing page yang langsung siap dipakai jualan",
+      "Toko online lengkap: katalog, keranjang, sampai checkout",
+      "Website acara: info, pendaftaran, dan pengumuman buat peserta",
+      "Struktur konten dan SEO dasar biar gampang ketemu di Google",
+      "Tampilannya ngikut, mau dibuka di HP, tablet, atau laptop",
     ],
   },
   {
     icon: "Database",
     title: "Database & Web Systems",
-    desc: "Sistem informasi, dashboard admin, inventaris dan aset.",
+    desc: "Sistem informasi, dashboard admin, inventaris, dan aset.",
     details: [
-      "Sistem informasi untuk data anggota, pelanggan, atau inventaris",
-      "Dashboard admin dengan hak akses berbeda tiap peran",
-      "Pencarian, penyaringan, dan ekspor data ke spreadsheet",
-      "Riwayat perubahan sehingga data bisa ditelusuri kembali",
-      "Pemindahan data dari spreadsheet yang sudah berjalan",
+      "Sistem buat ngelola data anggota, pelanggan, atau stok barang",
+      "Dashboard admin dengan hak akses beda-beda tiap peran",
+      "Cari, saring, dan ekspor data ke spreadsheet kapan pun",
+      "Riwayat perubahan, jadi kalau ada yang janggal bisa ditelusuri",
+      "Data lama di spreadsheet kami pindahin, nggak usah input ulang",
     ],
   },
   {
@@ -79,10 +79,10 @@ export const services = [
     title: "AI & Automation",
     desc: "Chatbot, integrasi AI dan API, otomasi alur kerja dan laporan.",
     details: [
-      "Chatbot yang menjawab pertanyaan berulang dari pelanggan",
-      "Integrasi API dan layanan AI ke alur kerja yang sudah ada",
-      "Otomasi tugas berulang: rekap, notifikasi, dan penjadwalan",
-      "Laporan berkala yang tersusun sendiri tanpa input manual",
+      "Chatbot yang jawab pertanyaan yang itu-itu terus dari pelanggan",
+      "Integrasi API dan layanan AI ke alur kerja yang udah jalan",
+      "Otomasi hal berulang: rekap, notifikasi, dan penjadwalan",
+      "Laporan berkala yang jadi sendiri, tanpa diketik manual",
     ],
   },
   {
@@ -90,10 +90,10 @@ export const services = [
     title: "UI/UX & Prototype",
     desc: "Wireframe, desain antarmuka, dan prototype interaktif.",
     details: [
-      "Wireframe dan alur layar disepakati sebelum pengembangan dimulai",
-      "Desain antarmuka yang konsisten dengan identitas Anda",
-      "Prototype interaktif yang bisa dicoba sebelum dibangun",
-      "Penyerahan komponen desain agar mudah dilanjutkan tim lain",
+      "Wireframe dan alur layar disepakati dulu sebelum mulai dikoding",
+      "Desain antarmuka yang nyambung sama identitas brand-mu",
+      "Prototype yang bisa diklik-klik sebelum beneran dibangun",
+      "Komponen desainnya kami serahkan, biar gampang dilanjutin",
     ],
   },
   {
@@ -101,16 +101,16 @@ export const services = [
     title: "Digital Profiles",
     desc: "Digital CV, portofolio, profil founder dan organisasi.",
     details: [
-      "Digital CV dan portofolio personal yang rapi dibagikan",
-      "Profil founder dan tim dalam satu halaman",
-      "Profil organisasi dengan tautan dan kontak terpusat",
-      "Tautan pendek yang mudah disebar di media sosial",
+      "Digital CV dan portofolio yang rapi buat dibagikan",
+      "Profil founder dan tim cukup dalam satu halaman",
+      "Profil organisasi dengan semua tautan dan kontak jadi satu",
+      "Link pendek yang enak disebar di media sosial",
     ],
   },
 ];
 
 export const supportServices = {
-  title: "Layanan Pendukung",
+  title: "Yang Tetap Jalan Setelah Rilis",
   items: ["Maintenance", "Dukungan teknis", "Pengembangan fitur lanjutan"],
 };
 
@@ -118,55 +118,55 @@ export const solutions = [
   {
     icon: "Briefcase",
     title: "Business Digital Presence",
-    desc: "Website profesional untuk identitas digital bisnis.",
-    outcome: "Calon klien menemukan dan menilai Anda sebelum sempat bertanya.",
+    desc: "Website profesional buat identitas digital bisnismu.",
+    outcome: "Calon klien udah kenal dan percaya kamu sebelum sempat nanya.",
     fit: ["UMKM", "Perusahaan"],
   },
   {
     icon: "ClipboardList",
     title: "Operational Management Systems",
-    desc: "Sistem informasi untuk data, inventaris, dan anggota.",
-    outcome: "Data operasional berkumpul di satu tempat, bukan tersebar di banyak file.",
+    desc: "Sistem informasi buat data, inventaris, dan anggota.",
+    outcome: "Data operasional ngumpul di satu tempat, bukan kececer di banyak file.",
     fit: ["Perusahaan", "Organisasi"],
   },
   {
     icon: "CalendarCheck",
     title: "Event & Organization Systems",
     desc: "Registrasi, database peserta, dan dashboard admin.",
-    outcome: "Pendaftaran berjalan sendiri dan data peserta langsung terekap.",
+    outcome: "Pendaftaran jalan sendiri, data peserta langsung kerekap.",
     fit: ["Penyelenggara acara", "Komunitas"],
   },
   {
     icon: "Workflow",
     title: "Reporting & Workflow Automation",
-    desc: "Otomasi kerja berulang dan pelaporan terstruktur.",
-    outcome: "Laporan rutin tersusun tanpa memakan waktu tim setiap periode.",
+    desc: "Otomasi kerja berulang dan laporan yang tersusun rapi.",
+    outcome: "Laporan rutin beres tanpa nyita waktu tim tiap periode.",
     fit: ["Perusahaan", "Organisasi"],
   },
   {
     icon: "Rocket",
     title: "Digital Product Development",
     desc: "Desain, prototype, pengujian, dan implementasi.",
-    outcome: "Ide diuji lebih dulu sebelum biaya pengembangan besar dikeluarkan.",
+    outcome: "Ide diuji dulu sebelum kamu keluar biaya pengembangan besar.",
     fit: ["Startup", "Perusahaan"],
   },
 ];
 
 export const process = [
-  { step: "01", title: "Konsultasi", desc: "Diskusi kebutuhan dan tujuan. Konsultasi awal gratis." },
-  { step: "02", title: "Analisis Kebutuhan", desc: "Analisis lingkup, fitur, jadwal, dan estimasi biaya." },
-  { step: "03", title: "Proposal & Kesepakatan", desc: "Harga, jadwal, termin, batas revisi, dan ketentuan kerja." },
-  { step: "04", title: "Pengembangan", desc: "Pengembangan sesuai lingkup, komunikasi rutin." },
-  { step: "05", title: "Pengujian & QA", desc: "Uji fungsi dan perbaikan berdasarkan hasil pengujian." },
-  { step: "06", title: "Serah Terima & Dukungan", desc: "Serah terima, dokumentasi, dan maintenance lanjutan." },
+  { step: "01", title: "Konsultasi", desc: "Ngobrol dulu soal kebutuhan dan tujuanmu. Konsultasi awal gratis." },
+  { step: "02", title: "Analisis Kebutuhan", desc: "Kami bedah lingkup, fitur, jadwal, dan estimasi biayanya." },
+  { step: "03", title: "Proposal & Kesepakatan", desc: "Harga, jadwal, termin, batas revisi, dan ketentuan kerja, semua tertulis." },
+  { step: "04", title: "Pengembangan", desc: "Dikerjakan sesuai lingkup, progresnya kami kabarin rutin." },
+  { step: "05", title: "Pengujian & QA", desc: "Diuji dulu, yang masih janggal kami benerin sebelum diserahkan." },
+  { step: "06", title: "Serah Terima & Dukungan", desc: "Serah terima, dokumentasi, plus maintenance kalau kamu mau." },
 ];
 
 export const whyNovara = [
-  { icon: "Target", title: "Fokus pada Klien", desc: "Setiap proyek dimulai dari memahami tujuan klien." },
-  { icon: "Puzzle", title: "Solusi Sesuai Ukuran", desc: "Sesuai lingkup, bukan satu produk untuk semua." },
-  { icon: "ListChecks", title: "Eksekusi Terstruktur", desc: "Lingkup, jadwal, dan hasil akhir disepakati bersama." },
-  { icon: "TrendingUp", title: "Pengembangan Terkembang", desc: "Siap dikembangkan seiring pertumbuhan kebutuhan." },
-  { icon: "Handshake", title: "Kemitraan Jangka Panjang", desc: "Maintenance dan dukungan teknis berkelanjutan." },
+  { icon: "Target", title: "Dengerin Dulu", desc: "Kami mulai dari tujuanmu, bukan dari template yang udah ada." },
+  { icon: "Puzzle", title: "Pas Sama Ukuranmu", desc: "Dibikin sesuai lingkupmu, bukan satu produk buat semua orang." },
+  { icon: "ListChecks", title: "Jelas Sejak Awal", desc: "Lingkup, jadwal, dan hasil akhirnya disepakati bareng di depan." },
+  { icon: "TrendingUp", title: "Siap Tumbuh", desc: "Dibangun biar gampang nambah fitur pas kebutuhanmu berkembang." },
+  { icon: "Handshake", title: "Nggak Kabur Habis Rilis", desc: "Maintenance dan dukungan teknis tetap jalan setelah serah terima." },
 ];
 
 export const techStack = [
@@ -181,23 +181,23 @@ export const techStack = [
 // Portofolio: JANGAN isi klien/hasil rekaan. Isi hanya proyek nyata/demo, dengan status jelas.
 export const portfolio = {
   caseFormat: [
-    "Latar belakang dan kebutuhan proyek",
-    "Permasalahan yang diselesaikan",
-    "Solusi yang dirancang",
-    "Teknologi yang digunakan",
-    "Hasil dan manfaat",
+    "Latar belakang dan apa yang dibutuhkan",
+    "Masalah yang kami selesaikan",
+    "Solusi yang kami rancang",
+    "Teknologi yang dipakai",
+    "Hasil dan dampaknya",
   ],
   categories: [
     "Website company profile",
-    "Landing page bisnis",
-    "Sistem registrasi acara",
-    "Dashboard inventaris",
-    "Otomasi pelaporan",
+    "Landing page buat jualan",
+    "Sistem pendaftaran acara",
+    "Dashboard stok dan inventaris",
+    "Otomasi laporan rutin",
   ],
-  note: "Proyek demonstrasi dan prototype diberi keterangan yang jelas.",
+  note: "Yang statusnya demo atau prototype kami tulis apa adanya, biar kamu nggak salah paham.",
   // Tambahkan proyek nyata di sini. status: "Proyek Klien" | "Proyek Demo" | "Prototype"
   items: [
-    { title: "Website Novara Project", status: "Proyek Demo", summary: "Website company profile ini sendiri.", tech: ["Next.js", "TypeScript", "Tailwind CSS"] }
+    { title: "Website Novara Project", status: "Proyek Demo", summary: "Website yang lagi kamu buka ini.", tech: ["Next.js", "TypeScript", "Tailwind CSS"] }
   ] as {
     title: string;
     status: "Proyek Klien" | "Proyek Demo" | "Prototype";
@@ -208,12 +208,12 @@ export const portfolio = {
 };
 
 export const clients = [
-  { title: "Perusahaan & Enterprise", desc: "Perusahaan yang butuh website, sistem informasi, dashboard, integrasi, atau otomasi." },
-  { title: "UMKM", desc: "UMKM yang ingin membangun identitas digital, memasarkan produk, dan lebih efisien." },
-  { title: "Organisasi & Komunitas", desc: "Website profil, database anggota, sistem administrasi, dan platform informasi." },
-  { title: "Penyelenggara Acara", desc: "Penyelenggara acara dan institusi: website registrasi dan pengelolaan peserta." },
+  { title: "Perusahaan & Enterprise", desc: "Perusahaan yang butuh website, sistem internal, dashboard, atau otomasi." },
+  { title: "UMKM", desc: "UMKM yang mau punya identitas digital, jualan lebih luas, dan kerja lebih ringkas." },
+  { title: "Organisasi & Komunitas", desc: "Website profil, database anggota, sistem administrasi, dan wadah informasi." },
+  { title: "Penyelenggara Acara", desc: "Penyelenggara acara dan institusi: website pendaftaran dan kelola peserta." },
 ];
-export const clientPriority = "Prioritas awal: UMKM, organisasi, dan penyelenggara kegiatan dengan kebutuhan yang jelas.";
+export const clientPriority = "Yang kami prioritaskan: UMKM, organisasi, dan penyelenggara acara yang udah tahu apa yang dibutuhin.";
 
 export const vision =
   "Menjadi mitra solusi digital terpercaya dan adaptif yang memberdayakan bisnis dan organisasi melalui teknologi yang aksesibel, efektif, dan berkelanjutan.";
@@ -228,36 +228,36 @@ export const mission = [
 
 export const faq = [
   {
-    q: "Berapa lama proses pembuatan website/sistem?",
-    a: "Tergantung lingkup. Website company profile: 2–4 minggu. Sistem informasi custom: 1–3 bulan. Kami komunikasi jadwal pasti sejak proposal.",
+    q: "Berapa lama sih bikin website atau sistemnya?",
+    a: "Tergantung lingkupnya. Website company profile 2–4 minggu, sistem informasi custom 1–3 bulan. Jadwal pastinya kami kasih tahu sejak proposal.",
   },
   {
-    q: "Apakah ada biaya bulanan setelah selesai?",
-    a: "Tidak wajib. Kami tawarkan paket maintenance opsional (update keamanan, backup, dukungan teknis). Bisa dibayar per incident atau bulanan.",
+    q: "Nanti ada biaya bulanan nggak?",
+    a: "Nggak wajib. Paket maintenance (update keamanan, backup, dukungan teknis) sifatnya opsional — bisa bayar per kejadian atau bulanan.",
   },
   {
-    q: "Bisa request revisi setelah serah terima?",
-    a: "Ya. Revisi minor (teks, gambar, warna) gratis selama 30 hari pasca-serah-terima. Revisi fitur/struktur baru dikutip terpisah.",
+    q: "Masih bisa revisi setelah serah terima?",
+    a: "Bisa. Revisi minor seperti teks, gambar, dan warna gratis selama 30 hari setelah serah terima. Kalau nambah fitur atau ubah struktur, kami kutip terpisah.",
   },
   {
-    q: "Teknologi apa yang dipakai Novara?",
-    a: "Utama: Next.js, React, TypeScript, Tailwind CSS, PostgreSQL, Prisma. AI: OpenAI API, LangChain. Deploy: Vercel, Docker. Detail di bagian Teknologi.",
+    q: "Teknologinya pakai apa aja?",
+    a: "Utamanya Next.js, React, TypeScript, Tailwind CSS, PostgreSQL, dan Prisma. Buat AI: OpenAI API dan LangChain. Deploy-nya di Vercel atau Docker. Daftar lengkapnya ada di bagian Teknologi.",
   },
   {
-    q: "Bagaimana cara memulai konsultasi?",
-    a: "Klik tombol “Konsultasi Gratis” di halaman ini, isi formulir singkat, atau hubungi via WhatsApp/Email. Kami balas maksimal 1 hari kerja.",
+    q: "Mulai konsultasinya gimana?",
+    a: "Klik tombol “Konsultasi Gratis” di halaman ini, atau langsung sapa kami lewat email dan Instagram di bagian Kontak. Kami balas maksimal 1 hari kerja.",
   },
 ];
 
 export const collaboration = {
   openTo: ["Perusahaan", "UMKM", "Institusi", "Organisasi dan komunitas", "Penyedia jasa profesional"],
   forms: [
-    "Pengembangan website dan sistem berbasis proyek",
-    "Solusi digital untuk organisasi dan acara",
-    "Kolaborasi teknis dengan agensi atau mitra",
-    "Sistem sesuai kebutuhan khusus klien",
+    "Garap website dan sistem per proyek",
+    "Solusi digital buat organisasi dan acara",
+    "Kolaborasi teknis bareng agensi atau mitra",
+    "Sistem khusus sesuai kebutuhan klien",
     "Referral atau subkontrak sesuai kesepakatan",
-    "Maintenance dan dukungan teknis berkelanjutan",
+    "Maintenance dan dukungan teknis jangka panjang",
   ],
-  note: "Tanggung jawab, lingkup, biaya, jadwal, dan kepemilikan hasil disepakati bersama.",
+  note: "Tanggung jawab, lingkup, biaya, jadwal, dan siapa yang punya hasilnya — semua disepakati bareng di awal.",
 };

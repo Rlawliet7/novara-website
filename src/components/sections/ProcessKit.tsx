@@ -55,7 +55,7 @@ export function Limb({ from, to, radius, color }: { from: Vec; to: Vec; radius: 
   const rotation = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), direction.clone().normalize());
   return (
     <mesh position={start.add(end).multiplyScalar(.5)} quaternion={rotation}>
-      <capsuleGeometry args={[radius, Math.max(.001, direction.length() - radius * 2), 8, 18]} />
+      <capsuleGeometry args={[radius, Math.max(.001, direction.length() - radius * 2), 4, 10]} />
       <meshStandardMaterial color={color} roughness={.7} />
     </mesh>
   );
@@ -64,7 +64,7 @@ export function Limb({ from, to, radius, color }: { from: Vec; to: Vec; radius: 
 export function Blob({ at, scale, color, rough = .7 }: { at: Vec; scale: Vec; color: string; rough?: number }) {
   return (
     <mesh position={at} scale={scale}>
-      <sphereGeometry args={[1, 32, 24]} />
+      <sphereGeometry args={[1, 20, 14]} />
       <meshStandardMaterial color={color} roughness={rough} />
     </mesh>
   );
@@ -73,7 +73,7 @@ export function Blob({ at, scale, color, rough = .7 }: { at: Vec; scale: Vec; co
 export function Box({ at, size, color, rotation = 0, rough = .65 }: { at: Vec; size: Vec; color: string; rotation?: number; rough?: number }) {
   const radius = Math.min(.055, Math.min(...size) / 2 - .002);
   return (
-    <RoundedBox position={at} rotation={[0, rotation, 0]} args={size} radius={Math.max(.004, radius)} smoothness={4} creaseAngle={.5}>
+    <RoundedBox position={at} rotation={[0, rotation, 0]} args={size} radius={Math.max(.004, radius)} smoothness={2} creaseAngle={.5}>
       <meshStandardMaterial color={color} roughness={rough} metalness={.04} />
     </RoundedBox>
   );
@@ -85,10 +85,11 @@ const SHOE = "#1b2435";
 /** A jointed figure: hips, knees and shoulders are real pivots so it can be animated. */
 export function Figure({
   at, turn = 0, shirt = "#2f6bff", skin = "#e4ad88", hair = "#1b2435",
-  seated = false, action = "idle", anim, offset = 0, groupRef,
+  seated = false, action = "idle", anim, offset = 0, groupRef, zone,
 }: {
   at: Vec; turn?: number; shirt?: string; skin?: string; hair?: string;
-  seated?: boolean; action?: Action; anim: RefObject<Anim>; offset?: number; groupRef?: RefObject<Group | null>;
+  seated?: boolean; action?: Action; anim: RefObject<Anim>; offset?: number;
+  groupRef?: RefObject<Group | null>; zone?: number;
 }) {
   const body = useRef<Group>(null);
   const hips = useRef<Group>(null);
@@ -102,6 +103,9 @@ export function Figure({
   const baseKnee = seated ? 1.5 : 0;
 
   useFrame(() => {
+    // Sebelas figur tersebar di enam zona; tanpa penjagaan ini semuanya
+    // menghitung rig tiap frame walau lima zona ada di luar layar.
+    if (zone !== undefined && Math.abs(anim.current.zone - zone) > .75) return;
     const t = (anim.current?.time ?? 0) + offset;
     const set = (ref: RefObject<Group | null>, x: number) => { if (ref.current) ref.current.rotation.x = x; };
 
@@ -180,12 +184,12 @@ export function Figure({
           {[0, 1].map((side) => (
             <group key={side} ref={legs[side]} position={[side ? .13 : -.13, 0, 0]}>
               <mesh position={[0, -.19, 0]}>
-                <capsuleGeometry args={[.096, .2, 8, 18]} />
+                <capsuleGeometry args={[.096, .2, 4, 10]} />
                 <meshStandardMaterial color={PANTS} roughness={.75} />
               </mesh>
               <group ref={knees[side]} position={[0, -.38, 0]}>
                 <mesh position={[0, -.18, 0]}>
-                  <capsuleGeometry args={[.082, .2, 8, 18]} />
+                  <capsuleGeometry args={[.082, .2, 4, 10]} />
                   <meshStandardMaterial color={PANTS} roughness={.75} />
                 </mesh>
                 <Box at={[0, -.4, .06]} size={[.17, .085, .27]} color={SHOE} rough={.5} />
@@ -195,12 +199,12 @@ export function Figure({
 
           {/* Torso, neck and head */}
           <mesh position={[0, .23, 0]}>
-            <capsuleGeometry args={[.19, .22, 10, 22]} />
+            <capsuleGeometry args={[.19, .22, 5, 12]} />
             <meshStandardMaterial color={shirt} roughness={.68} />
           </mesh>
           <Blob at={[0, .12, 0]} scale={[.21, .14, .16]} color={shirt} />
           <mesh position={[0, .46, 0]}>
-            <capsuleGeometry args={[.055, .05, 6, 14]} />
+            <capsuleGeometry args={[.055, .05, 4, 8]} />
             <meshStandardMaterial color={skin} roughness={.6} />
           </mesh>
 
@@ -215,12 +219,12 @@ export function Figure({
           {[0, 1].map((side) => (
             <group key={side} ref={arms[side]} position={[side ? .225 : -.225, .36, 0]}>
               <mesh position={[0, -.14, 0]}>
-                <capsuleGeometry args={[.062, .16, 8, 16]} />
+                <capsuleGeometry args={[.062, .16, 4, 10]} />
                 <meshStandardMaterial color={shirt} roughness={.68} />
               </mesh>
               <group ref={elbows[side]} position={[0, -.29, 0]}>
                 <mesh position={[0, -.13, 0]}>
-                  <capsuleGeometry args={[.055, .15, 8, 16]} />
+                  <capsuleGeometry args={[.055, .15, 4, 10]} />
                   <meshStandardMaterial color={skin} roughness={.6} />
                 </mesh>
                 <Blob at={[0, -.26, 0]} scale={[.063, .062, .055]} color={skin} rough={.55} />
@@ -257,22 +261,16 @@ export function Desk({ at, turn = 0, width = 1.9 }: { at: Vec; turn?: number; wi
   );
 }
 
-export function Monitor({ at, turn = 0, screen = "#2f6bff", width = .8, lit }: { at: Vec; turn?: number; screen?: string; width?: number; lit?: RefObject<number> }) {
-  const panel = useRef<Group>(null);
-  useFrame(() => {
-    if (panel.current && lit) panel.current.scale.y = 1;
-  });
+export function Monitor({ at, turn = 0, screen = "#2f6bff", width = .8 }: { at: Vec; turn?: number; screen?: string; width?: number }) {
   return (
     <group position={at} rotation={[0, turn, 0]}>
       <Box at={[0, .035, 0]} size={[.32, .05, .2]} color="#9fb0c7" rough={.45} />
       <Box at={[0, .18, 0]} size={[.07, .26, .07]} color="#9fb0c7" rough={.45} />
       <Box at={[0, .56, 0]} size={[width, .52, .055]} color="#263449" rough={.4} />
-      <group ref={panel}>
-        <mesh position={[0, .56, .033]}>
-          <planeGeometry args={[width - .07, .44]} />
-          <meshStandardMaterial color={screen} emissive={screen} emissiveIntensity={.6} roughness={.35} />
-        </mesh>
-      </group>
+      <mesh position={[0, .56, .033]}>
+        <planeGeometry args={[width - .07, .44]} />
+        <meshStandardMaterial color={screen} emissive={screen} emissiveIntensity={.6} roughness={.35} />
+      </mesh>
     </group>
   );
 }
@@ -286,7 +284,7 @@ export function Table({ at, radius = .62 }: { at: Vec; radius?: number }) {
       </mesh>
       <Limb from={[0, .6, 0]} to={[0, .07, 0]} radius={.058} color="#a7b4c9" />
       <mesh position={[0, .055, 0]}>
-        <cylinderGeometry args={[.33, .35, .06, 36]} />
+        <cylinderGeometry args={[.33, .35, .06, 20]} />
         <meshStandardMaterial color="#a7b4c9" roughness={.55} />
       </mesh>
       <Shadow at={[0, 0, 0]} size={radius * 2.6} />
@@ -298,11 +296,11 @@ export function Plant({ at, scale = 1 }: { at: Vec; scale?: number }) {
   return (
     <group position={at} scale={scale}>
       <mesh position={[0, .18, 0]}>
-        <cylinderGeometry args={[.18, .14, .36, 28]} />
+        <cylinderGeometry args={[.18, .14, .36, 16]} />
         <meshStandardMaterial color="#e4eaf5" roughness={.7} />
       </mesh>
       <mesh position={[0, .36, 0]}>
-        <cylinderGeometry args={[.19, .19, .04, 28]} />
+        <cylinderGeometry args={[.19, .19, .04, 16]} />
         <meshStandardMaterial color="#cfd8e8" roughness={.7} />
       </mesh>
       <Blob at={[0, .56, 0]} scale={[.23, .27, .23]} color="#3fae7a" rough={.8} />

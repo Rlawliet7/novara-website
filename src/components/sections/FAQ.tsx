@@ -1,47 +1,101 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { faq } from "@/config/content";
+import { siteConfig } from "@/config/site";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [active, setActive] = useState(0);
+  const [typing, setTyping] = useState(false);
+  const timer = useRef<number | null>(null);
+
+  // No typing pause on first paint — only when the visitor picks another question.
+  const ask = (index: number) => {
+    if (index === active) return;
+    setActive(index);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setTyping(true);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setTyping(false), 750);
+  };
+
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+
+  const item = faq[active];
 
   return (
     <Section
       id="faq"
       tone="light"
       eyebrow="FAQ"
-      title="Pertanyaan yang sering ditanyakan"
-      description="Jawaban cepat untuk keputusan Anda. Belum ketemu jawabannya? Hubungi kami langsung."
+      title="Yang paling sering ditanyain"
+      description="Jawaban singkat biar kamu nggak penasaran. Belum kejawab? Tanya kami langsung aja."
     >
-      <Reveal stagger className="max-w-3xl mx-auto">
-        <dl className="space-y-3">
-          {faq.map((item, i) => (
-            <div key={item.q} className="rounded-2xl border border-line bg-white overflow-hidden">
-              <button
-                type="button"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric"
-                aria-expanded={openIndex === i}
-              >
-                <span className="text-base font-semibold text-navy-900 pr-10">{item.q}</span>
-                <ChevronDown
-                  size={20}
-                  className={`shrink-0 text-navy-500 transition-transform duration-200 ${openIndex === i ? "rotate-180" : ""}`}
-                  aria-hidden="true"
-                />
-              </button>
-              {openIndex === i && (
-                <dd className="border-t border-line px-5 pb-5 text-base leading-relaxed text-slate-600 animate-in fade-in slide-in-from-top-2 duration-200">
-                  {item.a}
-                </dd>
-              )}
+      <Reveal>
+        <div className="faq-layout">
+          <ul className="faq-list">
+            {faq.map((entry, i) => (
+              <li key={entry.q}>
+                <button
+                  type="button"
+                  className="faq-q"
+                  data-active={i === active}
+                  aria-pressed={i === active}
+                  aria-controls="faq-chat"
+                  onClick={() => ask(i)}
+                >
+                  <span className="faq-q-no">{String(i + 1).padStart(2, "0")}</span>
+                  {entry.q}
+                  <ArrowUpRight size={16} className="faq-q-mark" aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* A phone drawn in plain HTML: the text stays sharp, selectable and
+              readable by screen readers — a texture on a 3D screen would not be. */}
+          <div className="phone" aria-hidden="true">
+            <div className="phone-glass">
+              <span className="phone-notch" />
+              <header className="phone-head">
+                {/* Lambangnya saja: komponen Logo ikut membawa tulisan "NOVARA". */}
+                <img src="/logo/logo.png" alt="" width={30} height={30} className="phone-avatar" />
+                <span>
+                  <strong>{siteConfig.name}</strong>
+                  <small>Balas maksimal 1 hari kerja</small>
+                </span>
+              </header>
+
+              <div className="phone-chat">
+                <p className="bubble-out">{item.q}</p>
+                {typing ? (
+                  <p className="bubble-in typing"><i /><i /><i /></p>
+                ) : (
+                  <p className="bubble-in">{item.a}</p>
+                )}
+              </div>
+
+              <div className="phone-input">
+                <span>Tulis pertanyaan…</span>
+                <i />
+              </div>
             </div>
-          ))}
-        </dl>
+          </div>
+
+          {/* The live answer for assistive tech, plus every pair for search engines. */}
+          <div id="faq-chat" className="sr-only" aria-live="polite">{item.q} — {item.a}</div>
+          <dl className="sr-only">
+            {faq.map((entry) => (
+              <div key={entry.q}>
+                <dt>{entry.q}</dt>
+                <dd>{entry.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </Reveal>
     </Section>
   );
