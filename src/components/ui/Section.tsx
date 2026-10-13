@@ -34,7 +34,7 @@ export function Section({
 }) {
   const dark = tone === "dark";
   return (
-    <section id={id} data-nav-theme={dark ? "dark" : "light"} className={`${tones[tone]} py-14 md:py-20 ${className}`}>
+    <section id={id} data-nav-theme={dark ? "dark" : "light"} className={`${tones[tone]} py-20 md:py-28 ${className}`}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8" data-chapter={chapter ? "" : undefined}>
         {(eyebrow || title) && (
           <Reveal className="mb-12 max-w-2xl">
