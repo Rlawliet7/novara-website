@@ -21,3 +21,15 @@ export function scrollToY(top: number, immediate = false) {
   }
   window.scrollTo({ top, behavior: immediate ? "instant" : "smooth" });
 }
+
+/**
+ * Tahan atau lepaskan scroll halaman, misalnya selagi modal terbuka.
+ * `body { overflow: hidden }` saja tidak cukup saat Lenis aktif, karena Lenis
+ * menggerakkan posisi scroll window sendiri lewat tickernya.
+ */
+export function setScrollLocked(locked: boolean) {
+  const lenis = bus.current;
+  if (!lenis) return;
+  if (locked) lenis.stop();
+  else lenis.start();
+}

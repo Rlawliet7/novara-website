@@ -4,7 +4,9 @@ import { services, supportServices } from "@/config/content";
 import { Icon } from "@/components/ui/Icon";
 import { ServiceArt } from "./ServiceArt";
 import { ArrowUpRight, X } from "lucide-react";
+import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { setScrollLocked } from "@/components/scroll/lenisBus";
 
 const MIDDLE = (services.length - 1) / 2;
 const CYCLE_MS = 2800;
@@ -63,6 +65,7 @@ export function ServiceDeck() {
     if (!node) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    setScrollLocked(true);
     node.querySelector<HTMLElement>("[data-autofocus]")?.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -87,6 +90,7 @@ export function ServiceDeck() {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      setScrollLocked(false);
       document.body.style.overflow = previousOverflow;
     };
   }, [close, selected]);
@@ -174,7 +178,7 @@ export function ServiceDeck() {
         {supportServices.items.join(" · ")}
       </p>
 
-      {service && (
+      {service && createPortal(
         <div className="service-modal" role="presentation" onClick={close}>
           <div
             ref={dialog}
@@ -204,7 +208,8 @@ export function ServiceDeck() {
               <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
